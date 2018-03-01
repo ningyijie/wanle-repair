@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="repair-api" />
+        <module name="repair-common" />
+        <module name="repair-console" />
+        <module name="repair-mq" />
+        <module name="repair-parent" />
+        <module name="repair-schedule" />
+        <module name="repair-service" />
+        <module name="repair-vo" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="repair-api" target="1.8" />
+      <module name="repair-common" target="1.6" />
+      <module name="repair-console" target="1.6" />
+      <module name="repair-mq" target="1.6" />
+      <module name="repair-parent" target="1.6" />
+      <module name="repair-schedule" target="1.6" />
+      <module name="repair-service" target="1.6" />
+      <module name="repair-vo" target="1.6" />
+      <module name="wanle-repair" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

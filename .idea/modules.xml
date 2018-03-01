@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/repair-api/repair-api.iml" filepath="$PROJECT_DIR$/repair-api/repair-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repair-common/repair-common.iml" filepath="$PROJECT_DIR$/repair-common/repair-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repair-console/repair-console.iml" filepath="$PROJECT_DIR$/repair-console/repair-console.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repair-mq/repair-mq.iml" filepath="$PROJECT_DIR$/repair-mq/repair-mq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repair-parent/repair-parent.iml" filepath="$PROJECT_DIR$/repair-parent/repair-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repair-schedule/repair-schedule.iml" filepath="$PROJECT_DIR$/repair-schedule/repair-schedule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repair-service/repair-service.iml" filepath="$PROJECT_DIR$/repair-service/repair-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repair-vo/repair-vo.iml" filepath="$PROJECT_DIR$/repair-vo/repair-vo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wanle-repair.iml" filepath="$PROJECT_DIR$/wanle-repair.iml" />
+    </modules>
+  </component>
+</project>
