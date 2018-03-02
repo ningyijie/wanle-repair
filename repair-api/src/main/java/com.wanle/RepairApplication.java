@@ -12,7 +12,9 @@ package com.wanle;
 import com.didispace.swagger.EnableSwagger2Doc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * EnableAutoConfiguration: Spring Boot会自动根据你jar包的依赖来自动配置项目,Spring Boot建议只有一个带有该注解的类。
@@ -27,7 +29,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @SpringBootApplication
 @Configuration
+@ServletComponentScan
 @EnableSwagger2Doc
+@EnableTransactionManagement
 public class RepairApplication {
 
     public static void main(String[] args) {
