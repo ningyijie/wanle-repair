@@ -10,7 +10,6 @@
         <module name="repair-common" />
         <module name="repair-console" />
         <module name="repair-mq" />
-        <module name="repair-parent" />
         <module name="repair-schedule" />
         <module name="repair-service" />
         <module name="repair-vo" />
@@ -26,6 +25,7 @@
       <module name="repair-service" target="1.6" />
       <module name="repair-vo" target="1.6" />
       <module name="wanle-repair" target="1.6" />
+      <module name="wanle-repair-aggregator" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

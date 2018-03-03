@@ -89,3 +89,8 @@ fabric.properties
 hs_err_pid*
 
 
+/.idea/
+/wanle-repair-aggregator.iml
+/repair-service/repair-service.iml
+/repair-api/repair-api.iml
+/repair-common/repair-common.iml

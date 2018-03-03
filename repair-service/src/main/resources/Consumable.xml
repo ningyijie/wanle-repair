@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanle.dao.ConsumableDao">
+
+	<resultMap id="Consumable" type="com.wanle.domain.Consumable" >
+		<result column=" id" property=" id"/>
+		<result column="phone_id" property="phoneId"/>
+		<result column="name" property="name"/>
+		<result column="remain" property="remain"/>
+		<result column="color" property="color"/>
+		<result column="price" property="price"/>
+		<result column="price_online" property="priceOnline"/>
+	</resultMap>
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		 id,
+		phone_id,
+		name,
+		remain,
+		color,
+		price,
+		price_online
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultMap="Consumable" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM consumable
+		 WHERE  id = #{ id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		 DELETE FROM consumable
+		 WHERE  id = #{ id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.wanle.domain.Consumable">
+		 INSERT INTO consumable
+ 		(
+			  id,
+			 phone_id,
+			 name,
+			 remain,
+			 color,
+			 price,
+			 price_online
+		) 
+		 VALUES 
+ 		(
+			 #{ id},
+			 #{phoneId},
+			 #{name},
+			 #{remain},
+			 #{color},
+			 #{price},
+			 #{priceOnline}
+ 		) 
+		 <selectKey keyProperty=" id" resultType="Long" order="AFTER">
+			 select LAST_INSERT_ID()
+		 </selectKey>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.wanle.domain.Consumable">
+		 UPDATE consumable
+ 		 <set> 
+			<if test="phoneId != null">
+				 phone_id = #{phoneId},
+			</if>
+			<if test="name != null and name != ''">
+				 name = #{name},
+			</if>
+			<if test="remain != null">
+				 remain = #{remain},
+			</if>
+			<if test="color != null and color != ''">
+				 color = #{color},
+			</if>
+			<if test="price != null">
+				 price = #{price},
+			</if>
+			<if test="priceOnline != null">
+				 price_online = #{priceOnline},
+			</if>
+
+ 		 </set>
+		 WHERE  id = #{ id}
+	</update>
+
+	<!-- list4Page 分页查询-->
+	<select id="list4Page" resultMap="Consumable">
+		 SELECT 
+		 <include refid="Base_Column_List" />
+		 from consumable
+ 		 where 1=1  
+		<if test="record. id != null">
+			 and  id = #{record. id} 
+		</if>
+		<if test="record.phoneId != null">
+			 and phone_id = #{record.phoneId} 
+		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
+		<if test="record.remain != null">
+			 and remain = #{record.remain} 
+		</if>
+		<if test="record.color != null and record.color != ''">
+			 and color = #{record.color} 
+		</if>
+		<if test="record.price != null">
+			 and price = #{record.price} 
+		</if>
+		<if test="record.priceOnline != null">
+			 and price_online = #{record.priceOnline} 
+		</if>
+		<if test="commonQueryParam != null">
+			<if test="commonQueryParam.start != null  and commonQueryParam.pageSize != null">
+				 limit #{commonQueryParam.start}, #{commonQueryParam.pageSize}
+			</if>
+		</if>
+	</select>
+	<!-- count 总数-->
+	<select id="count" resultType="long">
+		 SELECT 
+		 count(1) 
+		 from consumable
+ 		 where 1=1  
+		<if test="record. id != null">
+			 and  id = #{record. id} 
+		</if>
+		<if test="record.phoneId != null">
+			 and phone_id = #{record.phoneId} 
+		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
+		<if test="record.remain != null">
+			 and remain = #{record.remain} 
+		</if>
+		<if test="record.color != null and record.color != ''">
+			 and color = #{record.color} 
+		</if>
+		<if test="record.price != null">
+			 and price = #{record.price} 
+		</if>
+		<if test="record.priceOnline != null">
+			 and price_online = #{record.priceOnline} 
+		</if>
+	</select>
+	<!-- list 查询-->
+	<select id="list" resultMap="Consumable">
+		 SELECT 
+		 <include refid="Base_Column_List" />
+		 from consumable
+ 		 where 1=1  
+		<if test="record. id != null">
+			 and  id = #{record. id} 
+		</if>
+		<if test="record.phoneId != null">
+			 and phone_id = #{record.phoneId} 
+		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
+		<if test="record.remain != null">
+			 and remain = #{record.remain} 
+		</if>
+		<if test="record.color != null and record.color != ''">
+			 and color = #{record.color} 
+		</if>
+		<if test="record.price != null">
+			 and price = #{record.price} 
+		</if>
+		<if test="record.priceOnline != null">
+			 and price_online = #{record.priceOnline} 
+		</if>
+	</select>
+</mapper>

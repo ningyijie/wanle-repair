@@ -7,13 +7,16 @@ import com.wanle.utils.CommonQueryBean;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+
 /**
  * 
  * Color数据库操作接口类
  * 
  **/
 
+
 @Repository
+
 public interface ColorDao{
 
 

@@ -1,9 +1,9 @@
 package com.wanle;
 
+
 import java.io.*;
 import java.sql.*;
 import java.util.*;
-
 public class EntityUtil {
 
     private final String type_char = "char";

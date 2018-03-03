@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanle.dao.PhoneTypeDao">
+
+	<resultMap id="PhoneType" type="com.wanle.domain.PhoneType" >
+		<result column="id" property="id"/>
+		<result column="phone_name" property="phoneName"/>
+		<result column="phone_type" property="phoneType"/>
+		<result column="phone_img" property="phoneImg"/>
+		<result column="color_id" property="colorId"/>
+	</resultMap>
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		id,
+		phone_name,
+		phone_type,
+		phone_img,
+		color_id
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultMap="PhoneType" parameterType="java.lang.Long">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM phone_type
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		 DELETE FROM phone_type
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.wanle.domain.PhoneType">
+		 INSERT INTO phone_type
+ 		(
+			 id,
+			 phone_name,
+			 phone_type,
+			 phone_img,
+			 color_id
+		) 
+		 VALUES 
+ 		(
+			 #{id},
+			 #{phoneName},
+			 #{phoneType},
+			 #{phoneImg},
+			 #{colorId}
+ 		) 
+		 <selectKey keyProperty="id" resultType="Long" order="AFTER">
+			 select LAST_INSERT_ID()
+		 </selectKey>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.wanle.domain.PhoneType">
+		 UPDATE phone_type
+ 		 <set> 
+			<if test="phoneName != null and phoneName != ''">
+				 phone_name = #{phoneName},
+			</if>
+			<if test="phoneType != null and phoneType != ''">
+				 phone_type = #{phoneType},
+			</if>
+			<if test="phoneImg != null and phoneImg != ''">
+				 phone_img = #{phoneImg},
+			</if>
+			<if test="colorId != null">
+				 color_id = #{colorId},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- list4Page 分页查询-->
+	<select id="list4Page" resultMap="PhoneType">
+		 SELECT 
+		 <include refid="Base_Column_List" />
+		 from phone_type
+ 		 where 1=1  
+		<if test="record.id != null">
+			 and id = #{record.id} 
+		</if>
+		<if test="record.phoneName != null and record.phoneName != ''">
+			 and phone_name = #{record.phoneName} 
+		</if>
+		<if test="record.phoneType != null and record.phoneType != ''">
+			 and phone_type = #{record.phoneType} 
+		</if>
+		<if test="record.phoneImg != null and record.phoneImg != ''">
+			 and phone_img = #{record.phoneImg} 
+		</if>
+		<if test="record.colorId != null">
+			 and color_id = #{record.colorId} 
+		</if>
+		<if test="commonQueryParam != null">
+			<if test="commonQueryParam.start != null  and commonQueryParam.pageSize != null">
+				 limit #{commonQueryParam.start}, #{commonQueryParam.pageSize}
+			</if>
+		</if>
+	</select>
+	<!-- count 总数-->
+	<select id="count" resultType="long">
+		 SELECT 
+		 count(1) 
+		 from phone_type
+ 		 where 1=1  
+		<if test="record.id != null">
+			 and id = #{record.id} 
+		</if>
+		<if test="record.phoneName != null and record.phoneName != ''">
+			 and phone_name = #{record.phoneName} 
+		</if>
+		<if test="record.phoneType != null and record.phoneType != ''">
+			 and phone_type = #{record.phoneType} 
+		</if>
+		<if test="record.phoneImg != null and record.phoneImg != ''">
+			 and phone_img = #{record.phoneImg} 
+		</if>
+		<if test="record.colorId != null">
+			 and color_id = #{record.colorId} 
+		</if>
+	</select>
+	<!-- list 查询-->
+	<select id="list" resultMap="PhoneType">
+		 SELECT 
+		 <include refid="Base_Column_List" />
+		 from phone_type
+ 		 where 1=1  
+		<if test="record.id != null">
+			 and id = #{record.id} 
+		</if>
+		<if test="record.phoneName != null and record.phoneName != ''">
+			 and phone_name = #{record.phoneName} 
+		</if>
+		<if test="record.phoneType != null and record.phoneType != ''">
+			 and phone_type = #{record.phoneType} 
+		</if>
+		<if test="record.phoneImg != null and record.phoneImg != ''">
+			 and phone_img = #{record.phoneImg} 
+		</if>
+		<if test="record.colorId != null">
+			 and color_id = #{record.colorId} 
+		</if>
+	</select>
+</mapper>
