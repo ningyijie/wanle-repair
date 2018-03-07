@@ -1,7 +1,6 @@
 package com.wanle.api.controller;
 
 import com.wanle.api.service.PhoneService;
-import com.wanle.domain.PhoneType;
 import com.wanle.vo.Message;
 import com.wanle.vo.ResponseVo;
 import io.swagger.annotations.Api;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.Map;
 
 /**
  * class_name: PhoneTypeController
@@ -32,9 +31,9 @@ public class PhoneTypeController {
 
     @RequestMapping(value = "/api/v1/phoneType/getAllPhoneType", method = { RequestMethod.POST })
     @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
-    @ApiOperation(value = " 获取手机列表", httpMethod = "POST", response = String.class, notes = "正常还款")
+    @ApiOperation(value = " 获取手机列表", httpMethod = "POST", response = String.class, notes = "获取手机列表")
     public ResponseVo getAllPhoneType(HttpServletRequest request) {
-        List<PhoneType> phoneTypeList=phoneService.getAllPhoneTypeByCondition();
+        Map phoneTypeList=phoneService.getAllPhoneTypeByCondition();
         return new ResponseVo(Message.Success,phoneTypeList);
     }
 

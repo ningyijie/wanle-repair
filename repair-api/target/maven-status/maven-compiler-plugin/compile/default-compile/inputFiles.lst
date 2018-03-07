@@ -1,2 +1,10 @@
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/api/service/impl/PhoneServiceImpl.java
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/api/service/PhoneRepairTypeService.java
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/api/service/impl/PhoneRepairTypeServiceImpl.java
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/api/controller/PhoneRepairTypeController.java
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/api/service/PhoneService.java
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/api/controller/PhoneTypeController.java
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/config/MybatisConfig.java
 /Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/RepairApplication.java
-/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/api/controller.java
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/EntityUtil.java
+/Users/ningyijie/projectSource/wanle-repair/repair-api/src/main/java/com.wanle/config/MyBatisMapperScannerConfig.java

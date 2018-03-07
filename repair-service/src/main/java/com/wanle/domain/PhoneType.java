@@ -35,7 +35,7 @@ public class PhoneType implements java.io.Serializable {
 
   /**颜色**/
 
-  private Integer colorId;
+  private String colorId;
 
 
 
@@ -72,11 +72,11 @@ public class PhoneType implements java.io.Serializable {
   }
 
 
-  public void setColorId(Integer colorId) {     this.colorId = colorId;
+  public void setColorId(String colorId) {     this.colorId = colorId;
   }
 
 
-  public Integer getColorId() {     return this.colorId;
+  public String getColorId() {     return this.colorId;
   }
 
 }

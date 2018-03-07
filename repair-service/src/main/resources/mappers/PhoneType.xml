@@ -70,7 +70,7 @@
 			<if test="phoneImg != null and phoneImg != ''">
 				 phone_img = #{phoneImg},
 			</if>
-			<if test="colorId != null">
+			<if test="colorId != null and colorId != ''">
 				 color_id = #{colorId},
 			</if>
 
@@ -96,7 +96,7 @@
 		<if test="record.phoneImg != null and record.phoneImg != ''">
 			 and phone_img = #{record.phoneImg} 
 		</if>
-		<if test="record.colorId != null">
+		<if test="record.colorId != null and record.colorId != ''">
 			 and color_id = #{record.colorId} 
 		</if>
 		<if test="commonQueryParam != null">
@@ -123,7 +123,7 @@
 		<if test="record.phoneImg != null and record.phoneImg != ''">
 			 and phone_img = #{record.phoneImg} 
 		</if>
-		<if test="record.colorId != null">
+		<if test="record.colorId != null and record.colorId != ''">
 			 and color_id = #{record.colorId} 
 		</if>
 	</select>
@@ -145,7 +145,7 @@
 		<if test="record.phoneImg != null and record.phoneImg != ''">
 			 and phone_img = #{record.phoneImg} 
 		</if>
-		<if test="record.colorId != null">
+		<if test="record.colorId != null and record.colorId != ''">
 			 and color_id = #{record.colorId} 
 		</if>
 	</select>

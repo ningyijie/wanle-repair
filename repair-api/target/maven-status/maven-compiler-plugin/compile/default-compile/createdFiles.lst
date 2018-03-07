@@ -1,2 +1,10 @@
+com/wanle/config/MybatisConfig.class
+com/wanle/api/service/PhoneService.class
+com/wanle/EntityUtil.class
+com/wanle/api/controller/PhoneRepairTypeController.class
+com/wanle/api/controller/PhoneTypeController.class
+com/wanle/api/service/impl/PhoneServiceImpl.class
+com/wanle/api/service/PhoneRepairTypeService.class
+com/wanle/config/MyBatisMapperScannerConfig.class
+com/wanle/api/service/impl/PhoneRepairTypeServiceImpl.class
 com/wanle/RepairApplication.class
-com/wanle/api/controller.class

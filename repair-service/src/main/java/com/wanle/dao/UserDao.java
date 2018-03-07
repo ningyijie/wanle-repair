@@ -2,8 +2,8 @@ package com.wanle.dao;
 
 import java.util.List;
 import com.wanle.domain.User;
-
 import com.wanle.utils.CommonQueryBean;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

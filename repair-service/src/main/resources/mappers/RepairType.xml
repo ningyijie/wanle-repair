@@ -5,9 +5,8 @@
 
 	<resultMap id="RepairType" type="com.wanle.domain.RepairType" >
 		<result column=" id" property=" id"/>
-		<result column="phone_id" property="phoneId"/>
-		<result column="first_type" property="firstType"/>
-		<result column="seconde_type" property="secondeType"/>
+		<result column="repair_name" property="repairName"/>
+		<result column=" pid" property=" pid"/>
 		<result column="consumable_id" property="consumableId"/>
 		<result column="description" property="description"/>
 		<result column="color" property="color"/>
@@ -16,9 +15,8 @@
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
 		 id,
-		phone_id,
-		first_type,
-		seconde_type,
+		repair_name,
+		 pid,
 		consumable_id,
 		description,
 		color
@@ -29,13 +27,13 @@
 		 SELECT
 		 <include refid="Base_Column_List" />
 		 FROM repair_type
-		 WHERE  id = #{ id}
+		 WHERE  id = #{id}
 	</select>
 
 	<!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		 DELETE FROM repair_type
-		 WHERE  id = #{ id}
+		 WHERE  id = #{id}
 	</delete>
 
 	<!-- 添加 -->
@@ -43,19 +41,17 @@
 		 INSERT INTO repair_type
  		(
 			  id,
-			 phone_id,
-			 first_type,
-			 seconde_type,
+			 repair_name,
+			  pid,
 			 consumable_id,
 			 description,
 			 color
 		) 
 		 VALUES 
  		(
-			 #{ id},
-			 #{phoneId},
-			 #{firstType},
-			 #{secondeType},
+			 #{id},
+			 #{repairName},
+			 #{pid},
 			 #{consumableId},
 			 #{description},
 			 #{color}
@@ -69,14 +65,11 @@
 	<update id="updateByPrimaryKeySelective" parameterType="com.wanle.domain.RepairType">
 		 UPDATE repair_type
  		 <set> 
-			<if test="phoneId != null">
-				 phone_id = #{phoneId},
+			<if test="repairName != null and repairName != ''">
+				 repair_name = #{repairName},
 			</if>
-			<if test="firstType != null and firstType != ''">
-				 first_type = #{firstType},
-			</if>
-			<if test="secondeType != null and secondeType != ''">
-				 seconde_type = #{secondeType},
+			<if test=" pid != null and  pid != ''">
+				  pid = #{ pid},
 			</if>
 			<if test="consumableId != null">
 				 consumable_id = #{consumableId},
@@ -101,14 +94,11 @@
 		<if test="record. id != null">
 			 and  id = #{record. id} 
 		</if>
-		<if test="record.phoneId != null">
-			 and phone_id = #{record.phoneId} 
+		<if test="record.repairName != null and record.repairName != ''">
+			 and repair_name = #{record.repairName} 
 		</if>
-		<if test="record.firstType != null and record.firstType != ''">
-			 and first_type = #{record.firstType} 
-		</if>
-		<if test="record.secondeType != null and record.secondeType != ''">
-			 and seconde_type = #{record.secondeType} 
+		<if test="record. pid != null and record. pid != ''">
+			 and  pid = #{record. pid} 
 		</if>
 		<if test="record.consumableId != null">
 			 and consumable_id = #{record.consumableId} 
@@ -134,14 +124,11 @@
 		<if test="record. id != null">
 			 and  id = #{record. id} 
 		</if>
-		<if test="record.phoneId != null">
-			 and phone_id = #{record.phoneId} 
+		<if test="record.repairName != null and record.repairName != ''">
+			 and repair_name = #{record.repairName} 
 		</if>
-		<if test="record.firstType != null and record.firstType != ''">
-			 and first_type = #{record.firstType} 
-		</if>
-		<if test="record.secondeType != null and record.secondeType != ''">
-			 and seconde_type = #{record.secondeType} 
+		<if test="record. pid != null and record. pid != ''">
+			 and  pid = #{record. pid} 
 		</if>
 		<if test="record.consumableId != null">
 			 and consumable_id = #{record.consumableId} 
@@ -162,14 +149,11 @@
 		<if test="record. id != null">
 			 and  id = #{record. id} 
 		</if>
-		<if test="record.phoneId != null">
-			 and phone_id = #{record.phoneId} 
+		<if test="record.repairName != null and record.repairName != ''">
+			 and repair_name = #{record.repairName} 
 		</if>
-		<if test="record.firstType != null and record.firstType != ''">
-			 and first_type = #{record.firstType} 
-		</if>
-		<if test="record.secondeType != null and record.secondeType != ''">
-			 and seconde_type = #{record.secondeType} 
+		<if test="record. pid != null and record. pid != ''">
+			 and  pid = #{record. pid} 
 		</if>
 		<if test="record.consumableId != null">
 			 and consumable_id = #{record.consumableId} 
@@ -180,5 +164,18 @@
 		<if test="record.color != null and record.color != ''">
 			 and color = #{record.color} 
 		</if>
+	</select>
+
+	<!-- list 查询-->
+	<select id="selectByIds" resultMap="RepairType">
+		SELECT
+		<include refid="Base_Column_List" />
+		from repair_type
+		where
+		id in
+		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+		ORDER BY pid DESC
 	</select>
 </mapper>

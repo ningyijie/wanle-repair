@@ -2,8 +2,8 @@ package com.wanle.dao;
 
 import java.util.List;
 import com.wanle.domain.RepairType;
-
 import com.wanle.utils.CommonQueryBean;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -22,14 +22,14 @@ public interface RepairTypeDao{
 	 * 查询（根据主键ID查询）
 	 * 
 	 **/
-	RepairType  selectByPrimaryKey ( @Param(" id") Long  id );
+	RepairType  selectByPrimaryKey ( @Param("id") Long id );
 
 	/**
 	 * 
 	 * 删除（根据主键ID删除）
 	 * 
 	 **/
-	int deleteByPrimaryKey ( @Param(" id") Long  id );
+	int deleteByPrimaryKey ( @Param("id") Long id );
 
 	/**
 	 * 
@@ -65,5 +65,7 @@ public interface RepairTypeDao{
 	 * 
 	 **/
 	List<RepairType> list (@Param("record") RepairType record);
+
+	List<RepairType> selectByIds (@Param("ids") List<Long> ids);
 
 }

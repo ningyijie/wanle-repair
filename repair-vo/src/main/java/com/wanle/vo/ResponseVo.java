@@ -5,25 +5,36 @@ package com.wanle.vo;
  */
 public class ResponseVo<T> {
 
-    private Message message;
+    private int  code;
+    private String msg;
     private T result;
 
 
     public ResponseVo(Message message){
-        this.message=message;
+        this.code=message.getCode();
+        this.msg=message.getMessage();
     }
 
    public ResponseVo(Message message,T result){
-        this.message=message;
-        this.result=result;
+       this.code=message.getCode();
+       this.msg=message.getMessage();
+       this.result=result;
     }
 
-    public Message getMessage() {
-        return message;
+    public int getCode() {
+        return code;
     }
 
-    public void setMessage(Message message) {
-        this.message = message;
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public Object getResult() {
@@ -37,7 +48,8 @@ public class ResponseVo<T> {
     @Override
     public String toString() {
         return "ResponseVo{" +
-                "message=" + message +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
                 ", result=" + result +
                 '}';
     }

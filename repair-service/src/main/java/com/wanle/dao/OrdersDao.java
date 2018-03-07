@@ -1,11 +1,11 @@
 package com.wanle.dao;
 
+import java.util.List;
 import com.wanle.domain.Orders;
 import com.wanle.utils.CommonQueryBean;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * 

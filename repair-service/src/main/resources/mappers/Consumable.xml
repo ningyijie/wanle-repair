@@ -6,6 +6,7 @@
 	<resultMap id="Consumable" type="com.wanle.domain.Consumable" >
 		<result column=" id" property=" id"/>
 		<result column="phone_id" property="phoneId"/>
+		<result column="repair_id" property="repairId"/>
 		<result column="name" property="name"/>
 		<result column="remain" property="remain"/>
 		<result column="color" property="color"/>
@@ -17,6 +18,7 @@
 	<sql id="Base_Column_List">
 		 id,
 		phone_id,
+		repair_id,
 		name,
 		remain,
 		color,
@@ -44,6 +46,7 @@
  		(
 			  id,
 			 phone_id,
+			 repair_id,
 			 name,
 			 remain,
 			 color,
@@ -54,6 +57,7 @@
  		(
 			 #{ id},
 			 #{phoneId},
+			 #{repairId},
 			 #{name},
 			 #{remain},
 			 #{color},
@@ -71,6 +75,9 @@
  		 <set> 
 			<if test="phoneId != null">
 				 phone_id = #{phoneId},
+			</if>
+			<if test="repairId != null">
+				 repair_id = #{repairId},
 			</if>
 			<if test="name != null and name != ''">
 				 name = #{name},
@@ -103,6 +110,9 @@
 		</if>
 		<if test="record.phoneId != null">
 			 and phone_id = #{record.phoneId} 
+		</if>
+		<if test="record.repairId != null">
+			 and repair_id = #{record.repairId} 
 		</if>
 		<if test="record.name != null and record.name != ''">
 			 and name = #{record.name} 
@@ -137,6 +147,9 @@
 		<if test="record.phoneId != null">
 			 and phone_id = #{record.phoneId} 
 		</if>
+		<if test="record.repairId != null">
+			 and repair_id = #{record.repairId} 
+		</if>
 		<if test="record.name != null and record.name != ''">
 			 and name = #{record.name} 
 		</if>
@@ -164,6 +177,9 @@
 		</if>
 		<if test="record.phoneId != null">
 			 and phone_id = #{record.phoneId} 
+		</if>
+		<if test="record.repairId != null">
+			 and repair_id = #{record.repairId} 
 		</if>
 		<if test="record.name != null and record.name != ''">
 			 and name = #{record.name} 

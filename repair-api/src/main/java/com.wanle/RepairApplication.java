@@ -10,7 +10,6 @@ package com.wanle;
  **/
 
 import com.didispace.swagger.EnableSwagger2Doc;
-import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

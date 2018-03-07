@@ -23,6 +23,11 @@ public class Consumable implements java.io.Serializable {
   private Integer phoneId;
 
 
+  /****/
+
+  private Integer repairId;
+
+
   /**耗材名称**/
 
   private String name;
@@ -48,6 +53,10 @@ public class Consumable implements java.io.Serializable {
   private Integer priceOnline;
 
 
+  public static long getSerialVersionUID() {
+    return serialVersionUID;
+  }
+
   public Long getId() {
     return id;
   }
@@ -63,6 +72,16 @@ public class Consumable implements java.io.Serializable {
 
   public Integer getPhoneId() { 
     return this.phoneId;
+  }
+
+
+  public void setRepairId(Integer repairId) { 
+    this.repairId = repairId;
+  }
+
+
+  public Integer getRepairId() { 
+    return this.repairId;
   }
 
 

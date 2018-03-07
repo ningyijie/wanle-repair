@@ -2,11 +2,10 @@ package com.wanle.dao;
 
 import java.util.List;
 import com.wanle.domain.Color;
-
 import com.wanle.utils.CommonQueryBean;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
 
 /**
  * 
@@ -14,9 +13,7 @@ import org.springframework.stereotype.Repository;
  * 
  **/
 
-
 @Repository
-
 public interface ColorDao{
 
 

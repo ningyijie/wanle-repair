@@ -18,19 +18,14 @@ public class RepairType implements java.io.Serializable {
   private Long  id;
 
 
-  /**手机类型外键**/
-
-  private Integer phoneId;
-
-
   /**维修一级分类**/
 
-  private String firstType;
+  private String repairName;
 
 
-  /**维修二级分类**/
+  /**父级 id**/
 
-  private String secondeType;
+  private Long  pid;
 
 
   /**耗材id**/
@@ -60,34 +55,25 @@ public class RepairType implements java.io.Serializable {
     this.id = id;
   }
 
-  public void setPhoneId(Integer phoneId) {
-    this.phoneId = phoneId;
+  public Long getPid() {
+    return pid;
+  }
+
+  public void setPid(Long pid) {
+    this.pid = pid;
+  }
+
+  public void setRepairName(String repairName) {
+    this.repairName = repairName;
   }
 
 
-  public Integer getPhoneId() { 
-    return this.phoneId;
+  public String getRepairName() { 
+    return this.repairName;
   }
 
 
-  public void setFirstType(String firstType) { 
-    this.firstType = firstType;
-  }
 
-
-  public String getFirstType() { 
-    return this.firstType;
-  }
-
-
-  public void setSecondeType(String secondeType) { 
-    this.secondeType = secondeType;
-  }
-
-
-  public String getSecondeType() { 
-    return this.secondeType;
-  }
 
 
   public void setConsumableId(Integer consumableId) { 

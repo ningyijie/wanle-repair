@@ -417,7 +417,7 @@ public class EntityUtil {
      * @throws IOException
      */
     private void buildMapperXml(List<String> columns, List<String> types, List<String> comments) throws IOException {
-        File folder = new File(xml_path,moduleName);
+        File folder = new File(xml_path);
         if (!folder.exists()) {
             folder.mkdirs();
         }
