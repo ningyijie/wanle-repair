@@ -25,7 +25,7 @@ public class Consumable implements java.io.Serializable {
 
   /****/
 
-  private Integer repairId;
+  private Long repairId;
 
 
   /**耗材名称**/
@@ -75,17 +75,15 @@ public class Consumable implements java.io.Serializable {
   }
 
 
-  public void setRepairId(Integer repairId) { 
+  public Long getRepairId() {
+    return repairId;
+  }
+
+  public void setRepairId(Long repairId) {
     this.repairId = repairId;
   }
 
-
-  public Integer getRepairId() { 
-    return this.repairId;
-  }
-
-
-  public void setName(String name) { 
+  public void setName(String name) {
     this.name = name;
   }
 

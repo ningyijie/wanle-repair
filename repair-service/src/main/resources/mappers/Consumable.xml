@@ -197,4 +197,39 @@
 			 and price_online = #{record.priceOnline} 
 		</if>
 	</select>
+
+	<!-- list 查询-->
+	<select id="selectByConditionAndColor" resultMap="Consumable">
+		SELECT
+		<include refid="Base_Column_List" />
+		from consumable
+		where 1=1
+		<if test="record.id != null">
+			and  id = #{record.id}
+		</if>
+		<if test="record.phoneId != null">
+			and phone_id = #{record.phoneId}
+		</if>
+		<if test="record.repairId != null">
+			and repair_id = #{record.repairId}
+		</if>
+		<if test="record.name != null and record.name != ''">
+			and name = #{record.name}
+		</if>
+		<if test="record.remain != null">
+			and remain = #{record.remain}
+		</if>
+		<if test="record.color != null and record.color != ''">
+			and color in
+			<foreach collection="colors" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="record.price != null">
+			and price = #{record.price}
+		</if>
+		<if test="record.priceOnline != null">
+			and price_online = #{record.priceOnline}
+		</if>
+	</select>
 </mapper>
