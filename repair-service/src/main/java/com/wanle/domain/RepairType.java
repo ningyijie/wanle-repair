@@ -28,20 +28,6 @@ public class RepairType implements java.io.Serializable {
   private Long  pid;
 
 
-  /**耗材id**/
-
-  private Integer consumableId;
-
-
-  /****/
-
-  private String description;
-
-
-  /**颜色**/
-
-  private String color;
-
 
   public static long getSerialVersionUID() {
     return serialVersionUID;
@@ -74,35 +60,5 @@ public class RepairType implements java.io.Serializable {
 
 
 
-
-
-  public void setConsumableId(Integer consumableId) { 
-    this.consumableId = consumableId;
-  }
-
-
-  public Integer getConsumableId() { 
-    return this.consumableId;
-  }
-
-
-  public void setDescription(String description) { 
-    this.description = description;
-  }
-
-
-  public String getDescription() { 
-    return this.description;
-  }
-
-
-  public void setColor(String color) { 
-    this.color = color;
-  }
-
-
-  public String getColor() { 
-    return this.color;
-  }
 
 }

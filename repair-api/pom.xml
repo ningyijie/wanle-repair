@@ -99,7 +99,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>my.package.MyStartClass</mainClass>
+                    <mainClass>com.wanle.RepairApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -112,6 +112,28 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <config.branch>local</config.branch>
+            </properties>
+
+        </profile>
+        <profile>
+            <id>production</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <config.branch>production</config.branch>
+            </properties>
+        </profile>
+    </profiles>
 
 
 </project>

@@ -4,22 +4,16 @@
 <mapper namespace="com.wanle.dao.RepairTypeDao">
 
 	<resultMap id="RepairType" type="com.wanle.domain.RepairType" >
-		<result column=" id" property=" id"/>
+		<result column=" id" property="id"/>
 		<result column="repair_name" property="repairName"/>
-		<result column=" pid" property=" pid"/>
-		<result column="consumable_id" property="consumableId"/>
-		<result column="description" property="description"/>
-		<result column="color" property="color"/>
+		<result column=" pid" property="pid"/>
 	</resultMap>
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
 		 id,
 		repair_name,
-		 pid,
-		consumable_id,
-		description,
-		color
+		 pid
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -42,19 +36,13 @@
  		(
 			  id,
 			 repair_name,
-			  pid,
-			 consumable_id,
-			 description,
-			 color
+			  pid
 		) 
 		 VALUES 
  		(
 			 #{id},
 			 #{repairName},
-			 #{pid},
-			 #{consumableId},
-			 #{description},
-			 #{color}
+			 #{pid}
  		) 
 		 <selectKey keyProperty=" id" resultType="Long" order="AFTER">
 			 select LAST_INSERT_ID()
@@ -70,15 +58,6 @@
 			</if>
 			<if test=" pid != null and  pid != ''">
 				  pid = #{ pid},
-			</if>
-			<if test="consumableId != null">
-				 consumable_id = #{consumableId},
-			</if>
-			<if test="description != null and description != ''">
-				 description = #{description},
-			</if>
-			<if test="color != null and color != ''">
-				 color = #{color},
 			</if>
 
  		 </set>
@@ -100,15 +79,7 @@
 		<if test="record. pid != null and record. pid != ''">
 			 and  pid = #{record. pid} 
 		</if>
-		<if test="record.consumableId != null">
-			 and consumable_id = #{record.consumableId} 
-		</if>
-		<if test="record.description != null and record.description != ''">
-			 and description = #{record.description} 
-		</if>
-		<if test="record.color != null and record.color != ''">
-			 and color = #{record.color} 
-		</if>
+
 		<if test="commonQueryParam != null">
 			<if test="commonQueryParam.start != null  and commonQueryParam.pageSize != null">
 				 limit #{commonQueryParam.start}, #{commonQueryParam.pageSize}
@@ -130,15 +101,6 @@
 		<if test="record. pid != null and record. pid != ''">
 			 and  pid = #{record. pid} 
 		</if>
-		<if test="record.consumableId != null">
-			 and consumable_id = #{record.consumableId} 
-		</if>
-		<if test="record.description != null and record.description != ''">
-			 and description = #{record.description} 
-		</if>
-		<if test="record.color != null and record.color != ''">
-			 and color = #{record.color} 
-		</if>
 	</select>
 	<!-- list 查询-->
 	<select id="list" resultMap="RepairType">
@@ -154,15 +116,6 @@
 		</if>
 		<if test="record. pid != null and record. pid != ''">
 			 and  pid = #{record. pid} 
-		</if>
-		<if test="record.consumableId != null">
-			 and consumable_id = #{record.consumableId} 
-		</if>
-		<if test="record.description != null and record.description != ''">
-			 and description = #{record.description} 
-		</if>
-		<if test="record.color != null and record.color != ''">
-			 and color = #{record.color} 
 		</if>
 	</select>
 

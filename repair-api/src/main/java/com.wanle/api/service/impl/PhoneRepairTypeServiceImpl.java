@@ -76,7 +76,7 @@ public class PhoneRepairTypeServiceImpl implements PhoneRepairTypeService {
                     }
                     RepairTree repairTreeNode = repairTreeMap.get(repairType.getPid());
                     //子节点中，需要关联查询硬件价格
-                    repairTreeNode.addChildren(new RepairTree(repairType.getId(), repairType.getRepairName()));
+                    repairTreeNode.addChildren(new RepairTree(repairType.getId(), repairType.getRepairName(),getConsumableList(repairType,phoneRepairType)));
                     repairTreeMap.put(repairType.getPid(), repairTreeNode);
 
                 }
@@ -90,15 +90,16 @@ public class PhoneRepairTypeServiceImpl implements PhoneRepairTypeService {
      * 获取耗材信息
      * 根据 phoneId，repairId，colorId 获取指定耗材和其价格
      */
-    public List<Consumable> getConsumableDao(RepairType repairType, PhoneRepairType phoneRepairType){
+    public List<Consumable> getConsumableList(RepairType repairType, PhoneRepairType phoneRepairType){
         Consumable consumableParam=new Consumable();
         consumableParam.setPhoneId(phoneRepairType.getPhoneId());
         consumableParam.setRepairId(repairType.getId());
         List<Consumable> consumableList=consumableDao.list(consumableParam);
+        List<Consumable> consumableResult=null;
        if(consumableList!=null && consumableList.size()>0) {
-           List<Consumable> consumableResult=new ArrayList<>();
+           consumableResult=new ArrayList<>();
            for (Consumable consumable : consumableList) {
-               if ((consumable.getColor() == null) ||(consumable!=null && phoneRepairType.getColorId().contains(repairType.getColor()))){
+               if ((consumable.getColor() == null || phoneRepairType.getColorId()==null) ||(consumable!=null && phoneRepairType.getColorId().contains(consumable.getColor()))){
                    consumableResult.add(consumable);
                }
 
@@ -106,6 +107,6 @@ public class PhoneRepairTypeServiceImpl implements PhoneRepairTypeService {
            }
        }
 
-        return null;
+        return consumableResult;
     }
 }

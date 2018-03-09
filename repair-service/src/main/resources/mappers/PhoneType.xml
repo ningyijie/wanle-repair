@@ -8,6 +8,7 @@
 		<result column="phone_name" property="phoneName"/>
 		<result column="phone_type" property="phoneType"/>
 		<result column="phone_img" property="phoneImg"/>
+		<result column="phone_icon" property="phoneIcon"/>
 		<result column="color_id" property="colorId"/>
 	</resultMap>
 
@@ -17,6 +18,7 @@
 		phone_name,
 		phone_type,
 		phone_img,
+		phone_icon,
 		color_id
 	</sql>
 
@@ -42,6 +44,7 @@
 			 phone_name,
 			 phone_type,
 			 phone_img,
+			phone_icon,
 			 color_id
 		) 
 		 VALUES 
@@ -50,6 +53,7 @@
 			 #{phoneName},
 			 #{phoneType},
 			 #{phoneImg},
+			#{phoneIcon},
 			 #{colorId}
  		) 
 		 <selectKey keyProperty="id" resultType="Long" order="AFTER">
@@ -69,6 +73,9 @@
 			</if>
 			<if test="phoneImg != null and phoneImg != ''">
 				 phone_img = #{phoneImg},
+			</if>
+			 <if test="phoneIcon != null and phoneIcon != ''">
+				 phone_icon = #{phoneIcon},
 			</if>
 			<if test="colorId != null and colorId != ''">
 				 color_id = #{colorId},
@@ -95,6 +102,9 @@
 		</if>
 		<if test="record.phoneImg != null and record.phoneImg != ''">
 			 and phone_img = #{record.phoneImg} 
+		</if>
+		<if test="record.phoneIcon != null and record.phoneIcon != ''">
+			 and phone_icon = #{record.phoneIcon}
 		</if>
 		<if test="record.colorId != null and record.colorId != ''">
 			 and color_id = #{record.colorId} 
@@ -123,6 +133,9 @@
 		<if test="record.phoneImg != null and record.phoneImg != ''">
 			 and phone_img = #{record.phoneImg} 
 		</if>
+		<if test="record.phoneIcon != null and record.phoneIcon != ''">
+			and phone_icon = #{record.phoneIcon}
+		</if>
 		<if test="record.colorId != null and record.colorId != ''">
 			 and color_id = #{record.colorId} 
 		</if>
@@ -144,6 +157,9 @@
 		</if>
 		<if test="record.phoneImg != null and record.phoneImg != ''">
 			 and phone_img = #{record.phoneImg} 
+		</if>
+		<if test="record.phoneIcon != null and record.phoneIcon != ''">
+			and phone_icon = #{record.phoneIcon}
 		</if>
 		<if test="record.colorId != null and record.colorId != ''">
 			 and color_id = #{record.colorId} 

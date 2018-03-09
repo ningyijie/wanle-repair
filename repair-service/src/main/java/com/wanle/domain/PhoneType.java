@@ -32,6 +32,9 @@ public class PhoneType implements java.io.Serializable {
 
   private String phoneImg;
 
+  /**手机图标**/
+  private String phoneIcon;
+
 
   /**颜色**/
 
@@ -40,43 +43,60 @@ public class PhoneType implements java.io.Serializable {
 
 
 
-  public void setId(Long id) {     this.id = id;
+  public void setId(Long id) { 
+    this.id = id;
   }
 
 
-  public Long getId() {     return this.id;
+  public Long getId() { 
+    return this.id;
   }
 
 
-  public void setPhoneName(String phoneName) {     this.phoneName = phoneName;
+  public void setPhoneName(String phoneName) { 
+    this.phoneName = phoneName;
   }
 
 
-  public String getPhoneName() {     return this.phoneName;
+  public String getPhoneName() { 
+    return this.phoneName;
   }
 
 
-  public void setPhoneType(String phoneType) {     this.phoneType = phoneType;
+  public void setPhoneType(String phoneType) { 
+    this.phoneType = phoneType;
   }
 
 
-  public String getPhoneType() {     return this.phoneType;
+  public String getPhoneType() { 
+    return this.phoneType;
   }
 
 
-  public void setPhoneImg(String phoneImg) {     this.phoneImg = phoneImg;
+  public void setPhoneImg(String phoneImg) { 
+    this.phoneImg = phoneImg;
   }
 
 
-  public String getPhoneImg() {     return this.phoneImg;
+  public String getPhoneImg() { 
+    return this.phoneImg;
   }
 
 
-  public void setColorId(String colorId) {     this.colorId = colorId;
+  public void setColorId(String colorId) { 
+    this.colorId = colorId;
   }
 
 
-  public String getColorId() {     return this.colorId;
+  public String getColorId() { 
+    return this.colorId;
   }
 
+  public String getPhoneIcon() {
+    return phoneIcon;
+  }
+
+  public void setPhoneIcon(String phoneIcon) {
+    this.phoneIcon = phoneIcon;
+  }
 }
