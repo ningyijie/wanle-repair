@@ -13,6 +13,13 @@
         <module name="repair-schedule" />
         <module name="repair-service" />
         <module name="repair-vo" />
+        <module name="wanle-repair-api" />
+        <module name="wanle-repair-common" />
+        <module name="wanle-repair-console" />
+        <module name="wanle-repair-mq" />
+        <module name="wanle-repair-schedule" />
+        <module name="wanle-repair-service" />
+        <module name="wanle-repair-vo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,6 +33,14 @@
       <module name="repair-vo" target="1.6" />
       <module name="wanle-repair" target="1.6" />
       <module name="wanle-repair-aggregator" target="1.6" />
+      <module name="wanle-repair-api" target="1.8" />
+      <module name="wanle-repair-common" target="1.6" />
+      <module name="wanle-repair-console" target="1.6" />
+      <module name="wanle-repair-mq" target="1.6" />
+      <module name="wanle-repair-parent" target="1.6" />
+      <module name="wanle-repair-schedule" target="1.6" />
+      <module name="wanle-repair-service" target="1.6" />
+      <module name="wanle-repair-vo" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>
