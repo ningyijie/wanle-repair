@@ -1,6 +1,6 @@
-package com.wanle.api.service.impl;
+package com.wanle.repair.api.service.impl;
 
-import com.wanle.api.service.PhoneRepairTypeService;
+import com.wanle.repair.api.service.PhoneRepairTypeService;
 import com.wanle.dao.ConsumableDao;
 import com.wanle.dao.PhoneRepairTypeDao;
 import com.wanle.dao.RepairTypeDao;

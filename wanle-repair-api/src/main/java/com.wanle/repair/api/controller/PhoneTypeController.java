@@ -1,6 +1,6 @@
-package com.wanle.api.controller;
+package com.wanle.repair.api.controller;
 
-import com.wanle.api.service.PhoneService;
+import com.wanle.repair.api.service.PhoneService;
 import com.wanle.vo.Message;
 import com.wanle.vo.ResponseVo;
 import io.swagger.annotations.Api;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * class_name: PhoneTypeController
- * package: com.wanle.api.controller
+ * package: com.wanle.repair.api.controller
  * describe: TODO 手机品牌和型号管理
  * creat_user: ningyijie@finupgroup.com
  * creat_date: 2018/3/2

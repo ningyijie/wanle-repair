@@ -89,6 +89,16 @@
             <artifactId>mybatis</artifactId>
             <version>3.2.8</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.46</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.liyiorg</groupId>
+            <artifactId>weixin-popular</artifactId>
+            <version>2.8.7</version>
+        </dependency>
 
     </dependencies>
 
@@ -121,9 +131,22 @@
             </activation>
             <properties>
                 <config.branch>local</config.branch>
+                <weixn.appid>wxc6d2761bdd7c8df3</weixn.appid>
+                <weixin.secret>81aaaf1d3df7d643866a129b7bfbc9af</weixin.secret>
             </properties>
 
-        </profile>
+        </profile> <profile>
+        <id>test</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+            <config.branch>test</config.branch>
+            <weixn.appid>wx1d42277de76e1a4d</weixn.appid>
+            <weixin.secret>6e05c765177a8b60197712406c2f73f5</weixin.secret>
+        </properties>
+
+    </profile>
         <profile>
             <id>production</id>
             <activation>
@@ -131,9 +154,10 @@
             </activation>
             <properties>
                 <config.branch>production</config.branch>
+                <weixn.appid></weixn.appid>
+                <weixin.secret></weixin.secret>
             </properties>
         </profile>
     </profiles>
-
 
 </project>

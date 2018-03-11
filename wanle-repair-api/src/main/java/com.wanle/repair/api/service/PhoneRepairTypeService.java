@@ -1,4 +1,4 @@
-package com.wanle.api.service;
+package com.wanle.repair.api.service;
 
 import com.wanle.domain.PhoneRepairType;
 import com.wanle.vo.RepairTree;

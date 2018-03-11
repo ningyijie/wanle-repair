@@ -1,6 +1,6 @@
-package com.wanle.api.service.impl;
+package com.wanle.repair.api.service.impl;
 
-import com.wanle.api.service.PhoneService;
+import com.wanle.repair.api.service.PhoneService;
 import com.wanle.dao.PhoneTypeDao;
 import com.wanle.domain.PhoneType;
 import org.springframework.beans.factory.annotation.Autowired;

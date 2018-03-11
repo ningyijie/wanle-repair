@@ -4,7 +4,7 @@
 <mapper namespace="com.wanle.dao.ConsumableDao">
 
 	<resultMap id="Consumable" type="com.wanle.domain.Consumable" >
-		<result column=" id" property=" id"/>
+		<result column=" id" property="id"/>
 		<result column="phone_id" property="phoneId"/>
 		<result column="repair_id" property="repairId"/>
 		<result column="name" property="name"/>
@@ -55,7 +55,7 @@
 		) 
 		 VALUES 
  		(
-			 #{ id},
+			 #{id},
 			 #{phoneId},
 			 #{repairId},
 			 #{name},

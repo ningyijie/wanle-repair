@@ -1,24 +1,21 @@
-package com.wanle.api.controller;
+package com.wanle.repair.api.controller;
 
 import com.google.common.base.Preconditions;
-import com.wanle.api.service.PhoneRepairTypeService;
+import com.wanle.repair.api.service.PhoneRepairTypeService;
 import com.wanle.domain.PhoneRepairType;
 import com.wanle.vo.Message;
 import com.wanle.vo.RepairTree;
 import com.wanle.vo.ResponseVo;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
 
 /**
  * class_name: RepairTypeController
- * package: com.wanle.api.controller
+ * package: com.wanle.repair.api.controller
  * describe: TODO 维修分类
  * creat_user: ningyijie@finupgroup.com
  * creat_date: 2018/3/4
