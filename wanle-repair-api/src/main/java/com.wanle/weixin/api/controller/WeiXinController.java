@@ -13,10 +13,12 @@ import jdk.nashorn.internal.parser.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import weixin.popular.api.SnsAPI;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,6 +38,12 @@ public class WeiXinController {
     @Autowired
     private TokenSingleton tokenSingleton;
 
+    @Value("${weixn.appid}")
+    private  String appid;
+
+    @Value("${weixin.secret}")
+    private  String secret;
+
     @RequestMapping(value = "/api/v1/weixin/getAccessToken", method = { RequestMethod.GET })
     @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
     @ApiOperation(value = " 获取access_token 信息", httpMethod = "GET", response = String.class, notes = "获取access_token 信息")
@@ -48,8 +56,12 @@ public class WeiXinController {
     @RequestMapping(value = "/api/v1/weixin/getOauthWeb", method = { RequestMethod.GET })
     @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
     @ApiOperation(value = "微信网页授权", httpMethod = "GET", response = String.class, notes = "微信网页授权")
-    public ResponseVo getOauthWeb(HttpServletRequest request, @RequestParam(value = "userId") Long userId) {
-        logger.info("获取access_token 信息");
+    public ResponseVo getOauthWeb(HttpServletRequest request, @RequestParam(value = "redirectUri") String redirectUri) {
+        logger.info("微信网页授权登录开始,获取 code");
+//        SnsAPI.connectOauth2Authorize(appid,redirectUri);
+
+
+
         String accessToken =tokenSingleton.getAccessToken();
         return new ResponseVo(Message.Success,accessToken);
     }

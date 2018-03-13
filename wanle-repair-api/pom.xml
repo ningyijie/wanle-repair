@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wanle-wanle-repair-api</artifactId>
+    <artifactId>wanle-repair-api</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>wanle-repair-api</name>
@@ -109,7 +109,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.wanle.wanle-repairApplication</mainClass>
+                    <mainClass>com.wanle.RepairApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -154,8 +154,8 @@
             </activation>
             <properties>
                 <config.branch>production</config.branch>
-                <weixn.appid></weixn.appid>
-                <weixin.secret></weixin.secret>
+                <weixn.appid>wx1d42277de76e1a4d</weixn.appid>
+                <weixin.secret>6e05c765177a8b60197712406c2f73f5</weixin.secret>
             </properties>
         </profile>
     </profiles>

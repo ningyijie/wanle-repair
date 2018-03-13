@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +33,7 @@ public class PhoneTypeController {
     @Autowired
     private PhoneService phoneService;
 
-    @RequestMapping(value = "/api/v1/phoneType/getAllPhoneType", method = { RequestMethod.POST })
+    @RequestMapping(value = "/api/v1/phoneType/getAllPhoneType", method = { RequestMethod.POST,RequestMethod.GET })
     @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
     @ApiOperation(value = " 获取手机列表", httpMethod = "POST", response = String.class, notes = "获取手机列表")
     public ResponseVo getAllPhoneType(HttpServletRequest request) {

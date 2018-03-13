@@ -6,6 +6,7 @@ import com.wanle.domain.PhoneRepairType;
 import com.wanle.vo.Message;
 import com.wanle.vo.RepairTree;
 import com.wanle.vo.ResponseVo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.util.List;
  * creat_time: 下午2:54
  **/
 @RestController
+@Api(value = "获取手机维修信息",protocols = "JSON",tags = "")
 public class PhoneRepairTypeController {
 
     @Autowired
