@@ -76,7 +76,7 @@ public class WeiXinController {
         Preconditions.checkNotNull(signature, "signature cannot null");
         Preconditions.checkNotNull(timestamp, "timestamp cannot empty");
         Preconditions.checkNotNull(nonce, "nonce cannot empty");
-        Preconditions.checkNotNull(echostr, "echostr cannot empty");
+//        Preconditions.checkNotNull(echostr, "echostr cannot empty");
         weixinService.weiLogin(inputStream,outputStream,signature,timestamp,nonce,echostr);
 
     }
@@ -99,10 +99,6 @@ public class WeiXinController {
     public ResponseVo getOauthWeb(HttpServletRequest request, @RequestParam(value = "redirectUri") String redirectUri) {
         logger.info("微信网页授权登录开始,获取 code");
 //        SnsAPI.connectOauth2Authorize(appid,redirectUri);
-
-
-
-        String accessToken =tokenSingleton.getAccessToken();
-        return new ResponseVo(Message.Success,accessToken);
+//        return new ResponseVo(Message.Success,accessToken);
     }
 }

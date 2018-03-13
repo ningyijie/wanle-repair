@@ -29,7 +29,7 @@ public class WeixinServiceImpl implements WeixinService {
     @Autowired
     private static ExpireKey expireKey = new DefaultExpireKey();
 
-    @Value("${weixin.loginoken}")
+    @Value("${weixin.loginToken}")
     private  String  loginToken;
 
 
