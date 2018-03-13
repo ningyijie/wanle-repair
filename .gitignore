@@ -151,3 +151,7 @@ Would skip repository wanle-repair.git/
 /.idea/uiDesigner.xml
 /.idea/vcs.xml
 /.idea/.*
+/wanle-repair-common/wanle-repair-common.iml
+/wanle-repair-api/wanle-repair-api.iml
+/wanle-repair-aggregator.iml
+!/.idea/workspace.xml
