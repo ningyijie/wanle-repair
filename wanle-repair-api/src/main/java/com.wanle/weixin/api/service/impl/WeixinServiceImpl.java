@@ -5,7 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import weixin.popular.api.SnsAPI;
 import weixin.popular.bean.message.EventMessage;
 import weixin.popular.bean.xmlmessage.XMLMessage;
 import weixin.popular.bean.xmlmessage.XMLTextMessage;
@@ -31,6 +34,9 @@ public class WeixinServiceImpl implements WeixinService {
 
     @Value("${weixin.loginToken}")
     private  String  loginToken;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
 
 
@@ -90,6 +96,29 @@ public class WeixinServiceImpl implements WeixinService {
 
     }
 
+    /**
+     * 网页授权
+     * 1 第一步：用户同意授权，获取code
+
+     2 第二步：通过code换取网页授权access_token
+
+     3 第三步：刷新access_token（如果需要）
+
+     4 第四步：拉取用户信息(需scope为 snsapi_userinfo)
+     * @param appid
+     * @param redirectUri
+     * @param snsapiUserinfo
+     * @param state
+     */
+    @Override
+    public void Oauth2Authorize(String appid, String redirectUri, boolean snsapiUserinfo, String state) {
+       //获取 code
+        String getCodeUrl=SnsAPI.connectOauth2Authorize(appid,redirectUri,snsapiUserinfo,state);
+        logger.info("获取用户 oauth2Authorize 的 code，url={}",getCodeUrl);
+        ResponseEntity<String> code=restTemplate.getForEntity(getCodeUrl,String.class);
+        logger.info("获取用户 oauth2Authorize 的 code,出参={}",code);
+
+    }
 
 
     /**

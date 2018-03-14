@@ -76,7 +76,6 @@ public class WeiXinController {
         Preconditions.checkNotNull(signature, "signature cannot null");
         Preconditions.checkNotNull(timestamp, "timestamp cannot empty");
         Preconditions.checkNotNull(nonce, "nonce cannot empty");
-//        Preconditions.checkNotNull(echostr, "echostr cannot empty");
         weixinService.weiLogin(inputStream,outputStream,signature,timestamp,nonce,echostr);
 
     }
@@ -93,12 +92,12 @@ public class WeiXinController {
         return new ResponseVo(Message.Success,accessToken);
     }
 
-    @RequestMapping(value = "/api/v1/weixin/getOauthWeb", method = { RequestMethod.GET })
+    @RequestMapping(value = "/api/v1/weixin/getOauth2Authorize", method = { RequestMethod.GET })
     @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
     @ApiOperation(value = "微信网页授权", httpMethod = "GET", response = String.class, notes = "微信网页授权")
-    public ResponseVo getOauthWeb(HttpServletRequest request, @RequestParam(value = "redirectUri") String redirectUri) {
+    public ResponseVo getOauth2Authorize(HttpServletRequest request, @RequestParam(value = "redirectUri") String redirectUri, @RequestParam(value = "snsapiUserinfo") boolean snsapiUserinfo,@RequestParam(value = "state") String state) {
         logger.info("微信网页授权登录开始,获取 code");
-//        SnsAPI.connectOauth2Authorize(appid,redirectUri);
-//        return new ResponseVo(Message.Success,accessToken);
+
+        return null;
     }
 }
