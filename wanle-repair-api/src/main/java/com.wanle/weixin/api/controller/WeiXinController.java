@@ -97,7 +97,7 @@ public class WeiXinController {
     @ApiOperation(value = "微信网页授权", httpMethod = "GET", response = String.class, notes = "微信网页授权")
     public ResponseVo getOauth2Authorize(HttpServletRequest request, @RequestParam(value = "redirectUri") String redirectUri, @RequestParam(value = "snsapiUserinfo") boolean snsapiUserinfo,@RequestParam(value = "state") String state) {
         logger.info("微信网页授权登录开始,获取 code");
-
+        weixinService.Oauth2Authorize(appid,redirectUri,snsapiUserinfo,state);
         return null;
     }
 }

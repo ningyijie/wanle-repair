@@ -1,5 +1,6 @@
 package com.wanle.weixin.api.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wanle.weixin.api.service.WeixinService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,7 +116,7 @@ public class WeixinServiceImpl implements WeixinService {
        //获取 code
         String getCodeUrl=SnsAPI.connectOauth2Authorize(appid,redirectUri,snsapiUserinfo,state);
         logger.info("获取用户 oauth2Authorize 的 code，url={}",getCodeUrl);
-        ResponseEntity<String> code=restTemplate.getForEntity(getCodeUrl,String.class);
+        JSONObject code=restTemplate.getForObject(getCodeUrl,JSONObject.class);
         logger.info("获取用户 oauth2Authorize 的 code,出参={}",code);
 
     }

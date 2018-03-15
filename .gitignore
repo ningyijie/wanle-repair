@@ -155,3 +155,4 @@ Would skip repository wanle-repair.git/
 /wanle-repair-api/wanle-repair-api.iml
 /wanle-repair-aggregator.iml
 !/.idea/workspace.xml
+/wanle-repair-service/wanle-repair-service.iml
