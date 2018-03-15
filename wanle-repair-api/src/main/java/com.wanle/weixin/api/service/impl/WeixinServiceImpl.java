@@ -1,16 +1,21 @@
 package com.wanle.weixin.api.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wanle.domain.User;
+import com.wanle.vo.Message;
+import com.wanle.vo.ResponseVo;
+import com.wanle.weixin.api.service.WeiXinUserService;
 import com.wanle.weixin.api.service.WeixinService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import weixin.popular.api.SnsAPI;
 import weixin.popular.bean.message.EventMessage;
+import weixin.popular.bean.sns.SnsToken;
 import weixin.popular.bean.xmlmessage.XMLMessage;
 import weixin.popular.bean.xmlmessage.XMLTextMessage;
 import weixin.popular.support.ExpireKey;
@@ -36,8 +41,17 @@ public class WeixinServiceImpl implements WeixinService {
     @Value("${weixin.loginToken}")
     private  String  loginToken;
 
+    @Value("${weixn.appid}")
+    private  String appid;
+
+    @Value("${weixin.secret}")
+    private  String secret;
+
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private WeiXinUserService weiXinUserService;
 
 
 
@@ -106,19 +120,45 @@ public class WeixinServiceImpl implements WeixinService {
      3 第三步：刷新access_token（如果需要）
 
      4 第四步：拉取用户信息(需scope为 snsapi_userinfo)
-     * @param appid
      * @param redirectUri
      * @param snsapiUserinfo
      * @param state
      */
     @Override
-    public void Oauth2Authorize(String appid, String redirectUri, boolean snsapiUserinfo, String state) {
+    public void Oauth2Authorize(String redirectUri, boolean snsapiUserinfo, String state) {
        //获取 code
         String getCodeUrl=SnsAPI.connectOauth2Authorize(appid,redirectUri,snsapiUserinfo,state);
         logger.info("获取用户 oauth2Authorize 的 code，url={}",getCodeUrl);
         JSONObject code=restTemplate.getForObject(getCodeUrl,JSONObject.class);
         logger.info("获取用户 oauth2Authorize 的 code,出参={}",code);
 
+    }
+
+    /**
+     * 根据 code 获取 网页 access_token  然后获取 openId
+     * @param code
+     * @return
+     */
+    @Override
+    public ResponseVo getWeiXinLogin(String code) {
+        logger.info("用户同意授权");
+        if(!"".equals(code)){
+            //获取网页授权 access_token
+           SnsToken token=SnsAPI.oauth2AccessToken(appid,secret,code);
+           logger.info("通过 code 获取网页 access_token ,结果：{}",JSONObject.toJSONString(token));
+           if(token==null || StringUtils.isEmpty(token.getAccess_token()) || StringUtils.isEmpty(token.getOpenid()) ){
+               return new ResponseVo(Message.NoResult);
+           }
+           logger.info("通过网页 accesss_token 获取用户信息");
+           User user=weiXinUserService.getUserByOauthToken(token.getAccess_token(),token.getOpenid());
+           logger.info("获取到用户信息:{}",JSONObject.toJSONString(user));
+
+           //判断用户是否存在，不存在则直接存入
+
+
+
+        }
+        return null;
     }
 
 
