@@ -30,11 +30,11 @@ public class EntityUtil {
 
     private final String localpath="/Users/ningyijie/projectSource/";
 
-    private final String bean_path = localpath+"wanle-repair/repair-service/src/main/java";
+    private final String bean_path = localpath+"wanle-repair-aggregator/wanle-repair-service/src/main/java";
 
-    private final String mapper_path = localpath+"wanle-repair/repair-service/src/main/java";
+    private final String mapper_path = localpath+"wanle-repair-aggregator/wanle-repair-service/src/main/java";
 
-    private final String xml_path = localpath+"wanle-repair/repair-service/src/main/resources/mappers";// xml路径
+    private final String xml_path = localpath+"wanle-repair-aggregator/wanle-repair-service/src/main/resources/mappers";// xml路径
 
     private final String model_package = "com.wanle.domain";// model的包所在
 
@@ -73,9 +73,9 @@ public class EntityUtil {
         ResultSet results = pstate.executeQuery();
         while (results.next()) {
             String tableName = results.getString(1);
-//            if (tableName.toLowerCase().startsWith("user_location")) {
+            if (tableName.toLowerCase().startsWith("email_secutity")) {
                 tables.add(tableName);
-//            }
+            }
         }
         return tables;
     }

@@ -142,23 +142,25 @@ public class WeixinServiceImpl implements WeixinService {
     @Override
     public ResponseVo getWeiXinLogin(String code) {
         logger.info("用户同意授权");
-        if(!"".equals(code)){
-            //获取网页授权 access_token
-           SnsToken token=SnsAPI.oauth2AccessToken(appid,secret,code);
-           logger.info("通过 code 获取网页 access_token ,结果：{}",JSONObject.toJSONString(token));
-           if(token==null || StringUtils.isEmpty(token.getAccess_token()) || StringUtils.isEmpty(token.getOpenid()) ){
-               return new ResponseVo(Message.NoResult);
-           }
-           logger.info("通过网页 accesss_token 获取用户信息");
-           User user=weiXinUserService.getUserByOauthToken(token.getAccess_token(),token.getOpenid());
-           logger.info("获取到用户信息:{}",JSONObject.toJSONString(user));
+        try {
+            if(!"".equals(code)){
+                //获取网页授权 access_token
+               SnsToken token=SnsAPI.oauth2AccessToken(appid,secret,code);
+               logger.info("通过 code 获取网页 access_token ,结果：{}",JSONObject.toJSONString(token));
+               if(token==null || StringUtils.isEmpty(token.getAccess_token()) || StringUtils.isEmpty(token.getOpenid()) ){
+                   return new ResponseVo(Message.NoResult,token);
+               }
+               logger.info("通过网页 accesss_token 获取用户信息");
+               User user=weiXinUserService.getUserByOauthToken(token.getAccess_token(),token.getOpenid());
+               logger.info("获取到用户信息:{}",JSONObject.toJSONString(user));
 
-           //判断用户是否存在，不存在则直接存入
-
-
-
+                return new ResponseVo(Message.Success,user);
+            }
+        } catch (Exception e) {
+            logger.error("查询用户网页access_token 并获取用户信息失败",e);
+            return new ResponseVo(Message.UnKnowError);
         }
-        return null;
+        return new ResponseVo(Message.NoResult);
     }
 
 

@@ -6,6 +6,7 @@ import com.wanle.repair.api.controller.PhoneTypeController;
 import com.wanle.utils.TokenSingleton;
 import com.wanle.vo.Message;
 import com.wanle.vo.ResponseVo;
+import com.wanle.weixin.api.service.WeiXinUserService;
 import com.wanle.weixin.api.service.WeixinService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,6 +59,7 @@ public class WeiXinController {
 
 
 
+
     @Value("${weixin.secret}")
     private  String secret;
 
@@ -106,6 +108,6 @@ public class WeiXinController {
     @ApiOperation(value = "微信网页登录", httpMethod = "GET", response = String.class, notes = "微信网页登录")
     public ResponseVo getWeiXinLogin(HttpServletRequest request, @RequestParam(value = "code") String code) throws IOException {
         logger.info("微信网页登录--接收到的 code：{}",code);
-        return null;
+        return weixinService.getWeiXinLogin(code);
     }
 }

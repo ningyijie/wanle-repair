@@ -100,6 +100,22 @@
             <artifactId>weixin-popular</artifactId>
             <version>2.8.7</version>
         </dependency>
+        <!--邮件协议-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!--test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -143,6 +159,7 @@
         </activation>
         <properties>
             <config.branch>test</config.branch>
+            <server.port>8080</server.port>
             <weixn.appid>wx1d42277de76e1a4d</weixn.appid>
             <weixin.secret>6e05c765177a8b60197712406c2f73f5</weixin.secret>
         </properties>
@@ -155,6 +172,7 @@
             </activation>
             <properties>
                 <config.branch>production</config.branch>
+                <server.port>80</server.port>
                 <weixn.appid>wx1d42277de76e1a4d</weixn.appid>
                 <weixin.secret>6e05c765177a8b60197712406c2f73f5</weixin.secret>
             </properties>

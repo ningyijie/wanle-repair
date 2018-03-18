@@ -39,8 +39,8 @@
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table schema="PhoneRepair" tableName="user" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false" />
+        <table schema="PhoneRepair" tableName="email_secutity" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
 
 
     </context>
