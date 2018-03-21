@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 
 import java.util.List;
 import java.util.Random;
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
             EmailSecutity emailSecutity=emailSecutityDao.selectByEmailAnd5Minute(user.getEmail());
             if(emailSecutity!=null){
                 if(emailCode.equals(emailSecutity.getSecurityCode())) {
+                    user.setPassword(Base64Utils.encodeToString(user.getPassword().getBytes()));
                     userDao.insertSelective(user);
                 }else{
                     return new ResponseVo(Message.NoResult,"验证码填写不正确");
@@ -45,14 +47,15 @@ public class UserServiceImpl implements UserService {
 
             return new ResponseVo(Message.Success,user);
         } catch (Exception e) {
-            logger.error("注册用户失败{}",e);
-            return new ResponseVo(Message.UnKnowError,e);
+            logger.error("用户注册失败{}",e);
+            return new ResponseVo(Message.UnKnowError,"用户注册失败");
         }
     }
 
     @Override
     public ResponseVo userLogin(User user) {
         try {
+            user.setPassword(Base64Utils.encodeToString(user.getPassword().getBytes()));
             List<User> userList=userDao.list(user);
             if(userList!=null && userList.size()>0){
                 return new ResponseVo(Message.Success,userList.get(0));
@@ -69,8 +72,8 @@ public class UserServiceImpl implements UserService {
     public ResponseVo sendUserEamilCode(String email) {
         try {
             String verifyCode = String.valueOf(new Random().nextInt(899999) + 100000);
-            String content="亲爱的"+email+"用户你好:<br/>"+"欢迎注册万乐维修，你的注册验证码为:"+verifyCode+",该验证码5分钟内有效";
-            boolean flag= mailUtil.sendSimpleMail(email,"注册验证码",content);
+            String content="亲爱的"+email+"你好:<br/>"+"欢迎注册万乐维修，你的注册验证码为:"+verifyCode+",该验证码5分钟内有效";
+            boolean flag= mailUtil.sendHtmlMail(email,"注册验证码",content);
             if(!flag){
                 return new ResponseVo(Message.SystemError,"验证码发送失败，请联系管理员");
             }

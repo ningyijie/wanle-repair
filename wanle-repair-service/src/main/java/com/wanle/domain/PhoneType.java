@@ -1,42 +1,38 @@
 package com.wanle.domain;
 
 
+import io.swagger.annotations.ApiModelProperty;
 
-/**
- * 
- *  手机型号表
- * 
- **/
 public class PhoneType implements java.io.Serializable {
 
 
   private static final long serialVersionUID = 1L;
 
 
-  /****/
+  @ApiModelProperty("")
 
   private Long id;
 
 
-  /**手机品牌**/
+  @ApiModelProperty("手机品牌")
 
   private String phoneName;
 
 
-  /**手机型号**/
+  @ApiModelProperty("手机型号")
 
   private String phoneType;
 
 
-  /**手机图片**/
+  @ApiModelProperty("手机图片")
 
   private String phoneImg;
 
-  /**手机图标**/
+  @ApiModelProperty("手机图标")
   private String phoneIcon;
 
 
-  /**颜色**/
+  @ApiModelProperty("颜色")
 
   private String colorId;
 

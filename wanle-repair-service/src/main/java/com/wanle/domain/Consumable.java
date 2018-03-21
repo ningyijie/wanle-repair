@@ -1,54 +1,51 @@
 package com.wanle.domain;
 
 
+import io.swagger.annotations.ApiModelProperty;
 
-/**
- * 
- * 耗材表
- * 
- **/
+
 public class Consumable implements java.io.Serializable {
 
 
   private static final long serialVersionUID = 1L;
 
 
-  /****/
+  @ApiModelProperty("")
 
   private Long  id;
 
 
-  /**机型外键**/
+  @ApiModelProperty("机型外键")
 
   private Integer phoneId;
 
 
-  /****/
+  @ApiModelProperty("")
 
   private Long repairId;
 
 
-  /**耗材名称**/
+  @ApiModelProperty("耗材名称")
 
   private String name;
 
 
-  /**剩余**/
+  @ApiModelProperty("剩余")
 
   private Integer remain;
 
 
-  /**颜色**/
+  @ApiModelProperty("颜色")
 
   private String color;
 
 
-  /**售价**/
+  @ApiModelProperty("售价")
 
   private Integer price;
 
 
-  /**官方售价**/
+  @ApiModelProperty("官方售价")
 
   private Integer priceOnline;
 

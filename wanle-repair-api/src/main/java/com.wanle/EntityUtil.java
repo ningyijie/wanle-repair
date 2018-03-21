@@ -260,6 +260,7 @@ public class EntityUtil {
         bw.write("package " + model_package + ";");
         bw.newLine();
         bw.newLine();
+        bw.write("import io.swagger.annotations.ApiModelProperty;");
         Set<String> set = processImportType(columns, types);
         Iterator<String> it = set.iterator();
         while (it.hasNext()) {
@@ -282,7 +283,7 @@ public class EntityUtil {
         bw.newLine();
         int size = columns.size();
         for (int i = 0; i < size; i++) {
-            bw.write("\n  /**" + comments.get(i) + "**/");
+            bw.write("\n  @ApiModelProperty(" + comments.get(i) + ")");
             bw.newLine();
             bw.write("\n  private " + processType(types.get(i)) + " " + processField(columns.get(i)) + ";");
             bw.newLine();

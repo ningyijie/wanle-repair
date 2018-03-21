@@ -61,9 +61,8 @@ public class MailUtil {
      * @param subject
      * @param content
      */
-    public void sendHtmlMail(String to, String subject, String content){
+    public boolean sendHtmlMail(String to, String subject, String content){
         MimeMessage message = sender.createMimeMessage();
-
         try {
             //true表示需要创建一个multipart message
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -73,9 +72,11 @@ public class MailUtil {
             helper.setText(content, true);
 
             sender.send(message);
-            logger.info("html邮件已经发送。");
+            logger.info("发送邮件成功，收件人:{}",to);
+            return true;
         } catch (MessagingException e) {
-            logger.error("发送html邮件时发生异常！", e);
+            logger.error("发送邮件时发生异常！", e);
+            return false;
         }
     }
 

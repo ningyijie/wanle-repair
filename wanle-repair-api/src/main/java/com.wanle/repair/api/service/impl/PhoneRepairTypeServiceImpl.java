@@ -1,5 +1,6 @@
 package com.wanle.repair.api.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wanle.repair.api.service.PhoneRepairTypeService;
 import com.wanle.dao.ConsumableDao;
 import com.wanle.dao.PhoneRepairTypeDao;
@@ -82,7 +83,7 @@ public class PhoneRepairTypeServiceImpl implements PhoneRepairTypeService {
                 }
             }
         }
-        LOGGER.info(repairTreeMap.toString());
+        LOGGER.info(JSONObject.toJSONString(repairTreeMap));
         return Arrays.asList(repairTreeMap.values().toArray());
     }
 
