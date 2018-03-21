@@ -571,57 +571,54 @@ public class EntityUtil {
 
         // 添加insert完
 
-        // --------------- insert方法（匹配有值的字段）
-        // bw.write("\t<!-- 添加 （匹配有值的字段）-->");
-        // bw.newLine();
-        // bw.write("\t<insert id=\"insertSelective\" parameterType=\"" +
-        // processResultMapId(beanName) + "\">");
-        // bw.newLine();
-        // bw.write("\t\t INSERT INTO " + tableName);
-        // bw.newLine();
-        // bw.write("\t\t <trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\"
-        // >");
-        // bw.newLine();
-        //
-        // String tempField = null;
-        // for (int i = 0; i < size; i++) {
-        // tempField = processField(columns.get(i));
-        // bw.write("\t\t\t<if test=\"" + tempField + " != null\">");
-        // bw.newLine();
-        // bw.write("\t\t\t\t " + columns.get(i) + ",");
-        // bw.newLine();
-        // bw.write("\t\t\t</if>");
-        // bw.newLine();
-        // }
-        //
-        // bw.newLine();
-        // bw.write("\t\t </trim>");
-        // bw.newLine();
-        //
-        // bw.write("\t\t <trim prefix=\"values (\" suffix=\")\"
-        // suffixOverrides=\",\" >");
-        // bw.newLine();
-        //
-        // tempField = null;
-        // for (int i = 0; i < size; i++) {
-        // tempField = processField(columns.get(i));
-        // bw.write("\t\t\t<if test=\"" + tempField + "!=null\">");
-        // bw.newLine();
-        // bw.write("\t\t\t\t #{" + tempField + "},");
-        // bw.newLine();
-        // bw.write("\t\t\t</if>");
-        // bw.newLine();
-        // }
-        //
-        // bw.write("\t\t </trim>");
-        // bw.newLine();
-        // bw.write("\t</insert>");
-        // bw.newLine();
-        // bw.newLine();
+//         --------------- insert方法（匹配有值的字段）
+         bw.write("\t<!-- 添加 （匹配有值的字段）-->");
+         bw.newLine();
+         bw.write("\t<insert id=\"insertSelective\" parameterType=\"" + model_package + "." + beanName  + "\">");
+         bw.newLine();
+         bw.write("\t\t INSERT INTO " + tableName);
+         bw.newLine();
+         bw.write("\t\t <trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\" >");
+         bw.newLine();
+
+         String tempField = null;
+         for (int i = 0; i < size; i++) {
+         tempField = processField(columns.get(i));
+         bw.write("\t\t\t<if test=\"" + tempField + " != null\">");
+         bw.newLine();
+         bw.write("\t\t\t\t " + columns.get(i) + ",");
+         bw.newLine();
+         bw.write("\t\t\t</if>");
+         bw.newLine();
+         }
+
+         bw.newLine();
+         bw.write("\t\t </trim>");
+         bw.newLine();
+
+         bw.write("\t\t <trim prefix=\"values (\" suffix=\")\" suffixOverrides=\",\" >");
+         bw.newLine();
+
+         tempField = null;
+         for (int i = 0; i < size; i++) {
+         tempField = processField(columns.get(i));
+         bw.write("\t\t\t<if test=\"" + tempField + "!=null\">");
+         bw.newLine();
+         bw.write("\t\t\t\t #{" + tempField + "},");
+         bw.newLine();
+         bw.write("\t\t\t</if>");
+         bw.newLine();
+         }
+
+         bw.write("\t\t </trim>");
+         bw.newLine();
+         bw.write("\t</insert>");
+         bw.newLine();
+         bw.newLine();
         // // --------------- 完毕
 
         // 修改update方法
-        String tempField = null;
+         tempField = null;
         bw.write("\t<!-- 修 改-->");
         bw.newLine();
         bw.write("\t<update id=\"updateByPrimaryKeySelective\" parameterType=\"" + model_package + "." + beanName  + "\">");
