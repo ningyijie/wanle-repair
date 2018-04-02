@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanle.dao.AddressDao">
+
+	<resultMap id="Address" type="com.wanle.domain.Address" >
+		<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="address" property="address"/>
+		<result column="mobile" property="mobile"/>
+		<result column="name" property="name"/>
+	</resultMap>
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		id,
+		user_id,
+		address,
+		mobile,
+		name
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultMap="Address" parameterType="java.lang.Integer">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM address
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		 DELETE FROM address
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="com.wanle.domain.Address">
+		 INSERT INTO address
+ 		(
+			 id,
+			 user_id,
+			 address,
+			 mobile,
+			 name
+		) 
+		 VALUES 
+ 		(
+			 #{id},
+			 #{userId},
+			 #{address},
+			 #{mobile},
+			 #{name}
+ 		) 
+		 <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			 select LAST_INSERT_ID()
+		 </selectKey>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.wanle.domain.Address">
+		insert into address
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+		</trim>
+		<selectKey keyProperty="id" resultType="Integer" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.wanle.domain.Address">
+		 UPDATE address
+ 		 <set> 
+			<if test="userId != null">
+				 user_id = #{userId},
+			</if>
+			<if test="address != null and address != ''">
+				 address = #{address},
+			</if>
+			<if test="mobile != null and mobile != ''">
+				 mobile = #{mobile},
+			</if>
+			<if test="name != null and name != ''">
+				 name = #{name},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- list4Page 分页查询-->
+	<select id="list4Page" resultMap="Address">
+		 SELECT 
+		 <include refid="Base_Column_List" />
+		 from address
+ 		 where 1=1  
+		<if test="record.id != null">
+			 and id = #{record.id} 
+		</if>
+		<if test="record.userId != null">
+			 and user_id = #{record.userId} 
+		</if>
+		<if test="record.address != null and record.address != ''">
+			 and address = #{record.address} 
+		</if>
+		<if test="record.mobile != null and record.mobile != ''">
+			 and mobile = #{record.mobile} 
+		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
+		<if test="commonQueryParam != null">
+			<if test="commonQueryParam.start != null  and commonQueryParam.pageSize != null">
+				 limit #{commonQueryParam.start}, #{commonQueryParam.pageSize}
+			</if>
+		</if>
+	</select>
+	<!-- count 总数-->
+	<select id="count" resultType="long">
+		 SELECT 
+		 count(1) 
+		 from address
+ 		 where 1=1  
+		<if test="record.id != null">
+			 and id = #{record.id} 
+		</if>
+		<if test="record.userId != null">
+			 and user_id = #{record.userId} 
+		</if>
+		<if test="record.address != null and record.address != ''">
+			 and address = #{record.address} 
+		</if>
+		<if test="record.mobile != null and record.mobile != ''">
+			 and mobile = #{record.mobile} 
+		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
+	</select>
+	<!-- list 查询-->
+	<select id="list" resultMap="Address">
+		 SELECT 
+		 <include refid="Base_Column_List" />
+		 from address
+ 		 where 1=1  
+		<if test="record.id != null">
+			 and id = #{record.id} 
+		</if>
+		<if test="record.userId != null">
+			 and user_id = #{record.userId} 
+		</if>
+		<if test="record.address != null and record.address != ''">
+			 and address = #{record.address} 
+		</if>
+		<if test="record.mobile != null and record.mobile != ''">
+			 and mobile = #{record.mobile} 
+		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
+	</select>
+</mapper>
