@@ -1,5 +1,9 @@
 package com.wanle.utils;
 
+import com.wanle.dao.OrderEmailConfigDao;
+import com.wanle.domain.OrderEmailConfig;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +13,14 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * class_name: MailUtil
@@ -31,6 +39,16 @@ public class MailUtil {
 
     @Value("${spring.mail.username}")
     private String from;
+
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    @Autowired
+    private FreeMarkerConfigurer freeMarkerConfigurer; //自动注入
+
+    @Autowired
+    private OrderEmailConfigDao orderEmailConfigDao;
 
     /**
      * 发送纯文本的简单邮件
@@ -137,4 +155,69 @@ public class MailUtil {
             logger.error("发送嵌入静态资源的邮件时发生异常！", e);
         }
     }
+
+
+    /**
+     * method_name: sendHtmlTemplateMail
+     * param: [model]
+     * describe: TODO 发送模板邮件，发送信息来源数据库
+     * creat_user: ningyijie@finupgroup.com
+     * creat_date: 2018/4/2
+     * creat_time: 上午9:49
+     **/
+    public void sendHtmlTemplateMail(int templateId,Map<String, Object> model){
+        try {
+            OrderEmailConfig orderEmailConfig=orderEmailConfigDao.selectByPrimaryKey(templateId);
+            if(orderEmailConfig!=null){
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(from);
+            helper.setTo(orderEmailConfig.getEmailAlertPerson());
+            helper.setSubject(orderEmailConfig.getEmailTitleSubject());
+            //读取 html 模板
+            Template template=new Template(null,orderEmailConfig.getEmailHtmlTemplate(),null);
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            helper.setText(html, true);
+
+            mailSender.send(message);
+
+            }else{
+                logger.info("id={},邮件模板不存在",templateId);
+            }
+        } catch (Exception e) {
+            logger.error("发送模板邮件失败,邮件信息:{}",model,e);
+        }
+
+    }
+
+
+
+//    @Test
+//    public void sendTemplateMail(){
+//
+//        MimeMessage message = null;
+//        try {
+//            message = mailSender.createMimeMessage();
+//            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+//            helper.setFrom(to);
+//            helper.setTo(to);
+//            helper.setSubject("主题：模板邮件");
+//
+//            Map<String, Object> model = new HashedMap();
+//            model.put("username", "zggdczfr");
+//
+//            //修改 application.properties 文件中的读取路径
+////      FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+////      configurer.setTemplateLoaderPath("classpath:templates");
+//            //读取 html 模板
+//            Template template = freeMarkerConfigurer.getConfiguration().getTemplate("mail.html");
+//            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+//            helper.setText(html, true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        mailSender.send(message);
+//    }
+
 }

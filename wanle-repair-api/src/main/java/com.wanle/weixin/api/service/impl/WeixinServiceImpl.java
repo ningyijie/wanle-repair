@@ -65,7 +65,7 @@ public class WeixinServiceImpl implements WeixinService {
      * @param echostr
      */
     @Override
-    public void weiLogin(ServletInputStream inputStream, ServletOutputStream outputStream, String signature, String timestamp, String nonce, String echostr) {
+    public void weixinAccess(ServletInputStream inputStream, ServletOutputStream outputStream, String signature, String timestamp, String nonce, String echostr) {
         //首次请求申请验证,返回echostr
         if(echostr!=null){
             logger.info("微信验证登录--首次申请验证，直接返回:echostr={}",echostr);
@@ -73,7 +73,7 @@ public class WeixinServiceImpl implements WeixinService {
             return;
         }
 
-        logger.info("微信登录认证--开始验证请求签名");
+        logger.info("微信接入认证--开始验证请求签名");
         //验证请求签名
         if(!signature.equals(SignatureUtil.generateEventMessageSignature(loginToken,timestamp,nonce))){
             logger.info("微信登录认证--The request signature is invalid");
@@ -108,6 +108,12 @@ public class WeixinServiceImpl implements WeixinService {
         }
         outputStreamWrite(outputStream,"");
 
+    }
+
+    /**
+     * 微信接入消息处理
+     */
+    public void weixinMessageHandle(){
 
     }
 

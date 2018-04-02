@@ -1,20 +1,27 @@
 package com.wanle.repair.api.service.impl;
 
+import ch.qos.logback.classic.gaffer.PropertyUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.wanle.dao.OrdersDao;
 import com.wanle.domain.Orders;
 import com.wanle.repair.api.service.OrdersService;
+import com.wanle.utils.Bean2MapUtil;
 import com.wanle.utils.CommonQueryBean;
+import com.wanle.utils.MailUtil;
 import com.wanle.vo.Message;
 import com.wanle.vo.ResponseVo;
+import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.beans.BeanMap;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 @Service
@@ -24,9 +31,13 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
     private OrdersDao ordersDao;
+    @Autowired
+    private MailUtil mailUtil;
     @Override
     public int addOrders(Orders orders) {
         generateOrderNo(orders);
+        //发送订单邮件
+        mailUtil.sendHtmlTemplateMail(1, Bean2MapUtil.beanToMap(orders));
         return ordersDao.insertSelective(orders);
     }
 

@@ -73,7 +73,7 @@ public class EntityUtil {
         ResultSet results = pstate.executeQuery();
         while (results.next()) {
             String tableName = results.getString(1);
-            if (tableName.toLowerCase().startsWith("email_secutity")) {
+            if (tableName.toLowerCase().startsWith("order_email_config")) {
                 tables.add(tableName);
             }
         }
@@ -283,7 +283,7 @@ public class EntityUtil {
         bw.newLine();
         int size = columns.size();
         for (int i = 0; i < size; i++) {
-            bw.write("\n  @ApiModelProperty(" + comments.get(i) + ")");
+            bw.write("\n  @ApiModelProperty(\"" + comments.get(i) + "\")");
             bw.newLine();
             bw.write("\n  private " + processType(types.get(i)) + " " + processField(columns.get(i)) + ";");
             bw.newLine();

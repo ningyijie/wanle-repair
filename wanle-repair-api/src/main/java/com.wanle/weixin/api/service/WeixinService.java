@@ -9,7 +9,7 @@ import javax.servlet.ServletOutputStream;
 public interface WeixinService {
 
 
-    void weiLogin(ServletInputStream inputStream, ServletOutputStream outputStream,String signature, String timestamp,String nonce, String echostr);
+    void weixinAccess(ServletInputStream inputStream, ServletOutputStream outputStream, String signature, String timestamp, String nonce, String echostr);
 
 
     void Oauth2Authorize(String redirectUri,boolean snsapiUserinfo, String state);

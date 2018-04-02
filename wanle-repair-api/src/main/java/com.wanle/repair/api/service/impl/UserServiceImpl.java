@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
             if(userList!=null && userList.size()>0){
                 return new ResponseVo(Message.Success,userList.get(0));
             }else{
-                return new ResponseVo(Message.NoResult,"不存在该用户信息");
+                return new ResponseVo(Message.NoResult,"用户名或密码错误");
             }
         } catch (Exception e) {
             logger.error("用户登录失败",e);
