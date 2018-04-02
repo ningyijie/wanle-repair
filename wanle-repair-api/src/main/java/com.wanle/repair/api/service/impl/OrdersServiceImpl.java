@@ -8,6 +8,7 @@ import com.wanle.repair.api.service.OrdersService;
 import com.wanle.utils.Bean2MapUtil;
 import com.wanle.utils.CommonQueryBean;
 import com.wanle.utils.MailUtil;
+import com.wanle.utils.TokenSingleton;
 import com.wanle.vo.Message;
 import com.wanle.vo.ResponseVo;
 import org.apache.commons.lang.ObjectUtils;
@@ -17,12 +18,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanMap;
 import org.springframework.stereotype.Service;
+import weixin.popular.api.MessageAPI;
+import weixin.popular.bean.message.massmessage.MassTextMessage;
+import weixin.popular.bean.message.message.TextMessage;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class OrdersServiceImpl implements OrdersService {
@@ -33,11 +34,14 @@ public class OrdersServiceImpl implements OrdersService {
     private OrdersDao ordersDao;
     @Autowired
     private MailUtil mailUtil;
+    @Autowired
+    private TokenSingleton tokenSingleton;
     @Override
     public int addOrders(Orders orders) {
         generateOrderNo(orders);
         //发送订单邮件
         mailUtil.sendHtmlTemplateMail(1, Bean2MapUtil.beanToMap(orders));
+        pushWeixinNotice();
         return ordersDao.insertSelective(orders);
     }
 
@@ -83,6 +87,15 @@ public class OrdersServiceImpl implements OrdersService {
         String orederNo=simpleDateFormat.format(new Date())+userId+round;
         logger.info("userId={} 生成订单号为：{}",orederNo);
         orders.setOrderNo(orederNo);
+    }
+
+    public void pushWeixinNotice(){
+        TextMessage textMessage2 = new TextMessage("openId 列表群发文本消息");
+        textMessage2.setTouser("oztlns9n1gt0HcNSxx");
+        TextMessage.Text text=new TextMessage.Text();
+        text.setContent("测试");
+        textMessage2.setText(text);
+        MessageAPI.messageCustomSend(tokenSingleton.getAccessToken(),textMessage2);
     }
 
 }
