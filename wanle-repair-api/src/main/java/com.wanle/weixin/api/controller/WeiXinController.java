@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import com.wanle.repair.api.controller.PhoneTypeController;
 import com.wanle.utils.TokenSingleton;
 import com.wanle.vo.Message;
-import com.wanle.vo.ResponseVo;
+import com.wanle.vo.ResultVo;
 import com.wanle.weixin.api.service.WeixinService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +35,7 @@ import java.io.IOException;
  * creat_time: 下午10:15
  **/
 @RestController
-@Api(value = "微信对接控制类",protocols = "JSON",tags = "")
+@Api(value = "微信对接控制类",protocols = "JSON",tags = "微信对接控制类")
 public class WeiXinController {
 
     private Logger logger= LoggerFactory.getLogger(PhoneTypeController.class);
@@ -52,7 +52,7 @@ public class WeiXinController {
     private  String secret;
 
     @RequestMapping(value = "/api/v1/weixin/loginWeixin", method = { RequestMethod.GET ,RequestMethod.POST})
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResultVo.class) })
     @ApiOperation(value = "微信接入验证验证", httpMethod = "GET", response = String.class, notes = "微信接入验证验证")
     public void weixinAccess(HttpServletRequest request,HttpServletResponse response) throws IOException {
         logger.info("===微信接入===");
@@ -74,18 +74,18 @@ public class WeiXinController {
 
 
     @RequestMapping(value = "/api/v1/weixin/getAccessToken", method = { RequestMethod.GET })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResultVo.class) })
     @ApiOperation(value = " 获取access_token 信息", httpMethod = "GET", response = String.class, notes = "获取access_token 信息")
-    public ResponseVo getAllPhoneType(HttpServletRequest request) {
+    public ResultVo getAllPhoneType(HttpServletRequest request) {
         logger.info("获取access_token 信息");
         String accessToken =tokenSingleton.getAccessToken();
-        return new ResponseVo(Message.Success,accessToken);
+        return new ResultVo(Message.Success,accessToken);
     }
 
     @RequestMapping(value = "/api/v1/weixin/getOauth2Authorize", method = { RequestMethod.GET })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResultVo.class) })
     @ApiOperation(value = "微信网页授权获取 code 并跳转页面", httpMethod = "GET", response = String.class, notes = "微信网页授权获取 code 并跳转页面")
-    public ResponseVo getOauth2Authorize(HttpServletRequest request, @RequestParam(value = "redirectUri") String redirectUri, @RequestParam(value = "snsapiUserinfo") boolean snsapiUserinfo,@RequestParam(value = "state") String state) {
+    public ResultVo getOauth2Authorize(HttpServletRequest request, @RequestParam(value = "redirectUri") String redirectUri, @RequestParam(value = "snsapiUserinfo") boolean snsapiUserinfo, @RequestParam(value = "state") String state) {
         logger.info("微信网页授权登录开始,获取 code");
         weixinService.Oauth2Authorize(redirectUri,snsapiUserinfo,state);
         return null;
@@ -93,16 +93,16 @@ public class WeiXinController {
 
 
     @RequestMapping(value = "/api/v1/weixin/getWeiXinUserMsg", method = { RequestMethod.GET })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResultVo.class) })
     @ApiOperation(value = "微信网页获取用户信息", httpMethod = "GET", response = String.class, notes = "微信网页获取用户信息")
-    public ResponseVo getWeiXinUserMsg(HttpServletRequest request, @RequestParam(value = "code") String code) throws IOException {
+    public ResultVo getWeiXinUserMsg(HttpServletRequest request, @RequestParam(value = "code") String code) throws IOException {
         logger.info("微信网页登录--接收到的 code：{}",code);
         return weixinService.getWeiXinLogin(code);
     }
 
 
     @RequestMapping(value = "/api/v1/weixin/responseHtml", method = { RequestMethod.GET })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResultVo.class) })
     @ApiOperation(value = " 微信授权封装", httpMethod = "GET", response = String.class, notes = "微信授权封装")
     public void responseHtml(HttpServletRequest request,HttpServletResponse response) throws IOException {
         //1、微信网页授权，获取 code

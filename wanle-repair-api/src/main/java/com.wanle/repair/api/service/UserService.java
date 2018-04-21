@@ -1,12 +1,12 @@
 package com.wanle.repair.api.service;
 
 import com.wanle.domain.User;
-import com.wanle.vo.ResponseVo;
+import com.wanle.vo.ResultVo;
 
 public interface UserService {
-    ResponseVo userRegister(User user);
+    ResultVo userRegister(User user);
 
-    ResponseVo userLogin(User user);
+    ResultVo userLogin(User user);
 
-    ResponseVo sendUserEamilCode(String email);
+    ResultVo sendUserEamilCode(String email);
 }

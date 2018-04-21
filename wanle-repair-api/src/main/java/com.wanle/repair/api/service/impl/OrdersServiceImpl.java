@@ -1,8 +1,9 @@
 package com.wanle.repair.api.service.impl;
 
-import ch.qos.logback.classic.gaffer.PropertyUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.wanle.dao.OrderEmailConfigDao;
 import com.wanle.dao.OrdersDao;
+import com.wanle.domain.OrderEmailConfig;
 import com.wanle.domain.Orders;
 import com.wanle.repair.api.service.OrdersService;
 import com.wanle.utils.Bean2MapUtil;
@@ -10,20 +11,17 @@ import com.wanle.utils.CommonQueryBean;
 import com.wanle.utils.MailUtil;
 import com.wanle.utils.TokenSingleton;
 import com.wanle.vo.Message;
-import com.wanle.vo.ResponseVo;
-import org.apache.commons.lang.ObjectUtils;
+import com.wanle.vo.ResultVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.beans.BeanMap;
 import org.springframework.stereotype.Service;
 import weixin.popular.api.MessageAPI;
-import weixin.popular.bean.message.massmessage.MassTextMessage;
 import weixin.popular.bean.message.message.TextMessage;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.*;
 
 @Service
 public class OrdersServiceImpl implements OrdersService {
@@ -36,44 +34,47 @@ public class OrdersServiceImpl implements OrdersService {
     private MailUtil mailUtil;
     @Autowired
     private TokenSingleton tokenSingleton;
+    @Autowired
+    private OrderEmailConfigDao orderEmailConfigDao;
+
+
     @Override
     public int addOrders(Orders orders) {
         generateOrderNo(orders);
-        //发送订单邮件
-        mailUtil.sendHtmlTemplateMail(1, Bean2MapUtil.beanToMap(orders));
-        pushWeixinNotice();
+        //发送通知
+        sendNotice(orders);
         return ordersDao.insertSelective(orders);
     }
 
     @Override
-    public ResponseVo selectByUserId(Long userId) {
+    public ResultVo selectByUserId(Long userId) {
         try {
             if(userId!=null){
                 Orders orders=new Orders();
                 orders.setUserId(userId);
                 List<Orders> ordersList=ordersDao.list(orders);
-                return new ResponseVo(Message.Success,ordersList);
+                return new ResultVo(Message.Success,ordersList);
             }
-            return new ResponseVo(Message.NoResult);
+            return new ResultVo(Message.NoResult);
         } catch (Exception e) {
             logger.error("用户userId={}查询订单信息失败",userId,e);
-            return new ResponseVo(Message.UnKnowError);
+            return new ResultVo(Message.UnKnowError);
         }
     }
 
     @Override
-    public ResponseVo selectAllOrders(Orders orders, CommonQueryBean commonQueryBean) {
+    public ResultVo selectAllOrders(Orders orders, CommonQueryBean commonQueryBean) {
         List<Orders> ordersList=ordersDao.list4Page(orders,commonQueryBean);
-        return new ResponseVo(Message.Success,ordersList);
+        return new ResultVo(Message.Success,ordersList);
     }
 
     @Override
-    public ResponseVo updateOrders(Orders orders) {
+    public ResultVo updateOrders(Orders orders) {
         int i=ordersDao.updateByPrimaryKeySelective(orders);
         if(i>0){
-            return new ResponseVo(Message.Success);
+            return new ResultVo(Message.Success);
         }
-        return new ResponseVo(Message.UnKnowError,"更新用户订单信息失败");
+        return new ResultVo(Message.UnKnowError,"更新用户订单信息失败");
     }
 
     public void generateOrderNo(Orders orders){
@@ -85,17 +86,62 @@ public class OrdersServiceImpl implements OrdersService {
         //userId 补全
         String userId = String.format("%06d", orders.getUserId());
         String orederNo=simpleDateFormat.format(new Date())+userId+round;
-        logger.info("userId={} 生成订单号为：{}",orederNo);
+        logger.info("userId={} 生成订单号为：{}",orders.getUserId(),orederNo);
         orders.setOrderNo(orederNo);
     }
 
-    public void pushWeixinNotice(){
-        TextMessage textMessage2 = new TextMessage("openId 列表群发文本消息");
-        textMessage2.setTouser("oztlns9n1gt0HcNSxx");
-        TextMessage.Text text=new TextMessage.Text();
-        text.setContent("测试");
-        textMessage2.setText(text);
-        MessageAPI.messageCustomSend(tokenSingleton.getAccessToken(),textMessage2);
+    public void pushWeixinNotice(OrderEmailConfig orderEmailConfig, Map<String,Object> map){
+        try {
+            if(orderEmailConfig!=null && orderEmailConfig.getWxPushPerson()!=null && orderEmailConfig.getWxPushTemplate()!=null) {
+                String[] tos=orderEmailConfig.getWxPushPerson().split(",");
+                String content=orderEmailConfig.getWxPushTemplate();
+                logger.info("订单微信推送,推送人:{},模板信息:{},map 入参为：{}",tos,content,map);
+                //模板数据填充
+                for (Object s : map.keySet()) {
+                    content = content.replaceAll("\\$\\{".concat(s.toString()).concat("\\}"), map.get(s.toString()).toString());
+                }
+                logger.info("订单微信推送,推送内容:{}",content);
+                for(String to:tos) {
+//                    TextMessage textMessage2 = new TextMessage("openId 列表群发文本消息");
+//                    textMessage2.setTouser("oztlns9n1gt0HcNSxx_N45QRcZjw");
+//                    TextMessage.Text text = new TextMessage.Text();
+//                    text.setContent("测试");
+//                    textMessage2.setText(text);
+                    TextMessage textMessage=new TextMessage(to,content);
+                    MessageAPI.messageCustomSend(tokenSingleton.getAccessToken(), textMessage);
+                }
+            }else{
+                logger.info("微信推送模板信息为空");
+            }
+        } catch (Exception e) {
+           logger.error("推送微信消息失败",e);
+        }
+    }
+
+    public void sendNotice(Orders orders){
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        FutureTask<String> futureTask =
+                new FutureTask<>(new Callable<String>() {//使用Callable接口作为构造参数
+                    @Override
+                    public String call() {
+                        logger.info("查询邮件模板 id={},订单信息为：{}",1, JSONObject.toJSONString(orders));
+                        Map<String,Object> map=Bean2MapUtil.beanToMap(orders);
+                        OrderEmailConfig orderEmailConfig= orderEmailConfigDao.selectByPrimaryKey(1);
+                        if(orderEmailConfig!=null){
+                        //发送信息
+                        logger.info("用户下定单，向配置用户发送邮件");
+                        mailUtil.sendHtmlTemplateMail(orderEmailConfig, map);
+                        logger.info("用户下订单，向指定用户推送微信消息");
+                        pushWeixinNotice(orderEmailConfig,map);
+                        }else{
+                            logger.info("id={},邮件模板不存在",1);
+                        }
+                        return "ok";
+                    }
+                });
+        executor.execute(futureTask);
+
+
     }
 
 }

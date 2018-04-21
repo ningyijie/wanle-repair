@@ -2,6 +2,7 @@ package com.wanle;
 
 import com.wanle.utils.MailUtil;
 import freemarker.template.Template;
+import io.swagger.models.auth.In;
 import org.apache.commons.collections.map.HashedMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,8 +16,11 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfig;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -50,7 +54,15 @@ public class MailTest {
             message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(to);
+//            List<String> internetAddressList=new ArrayList<>();
+//            internetAddressList.add("897571053@qq.com");
+//            internetAddressList.add("2669165300@qq.com");
+//
+//            helper.setTo(internetAddressList.toArray(new String[internetAddressList.size()]));
+            String[] to={"897571053@qq.com"};
             helper.setTo(to);
+
+
             helper.setSubject("主题：模板邮件");
 
             Map<String, Object> model = new HashedMap();
@@ -77,5 +89,7 @@ public class MailTest {
         }
         mailSender.send(message);
     }
+
+
 
 }

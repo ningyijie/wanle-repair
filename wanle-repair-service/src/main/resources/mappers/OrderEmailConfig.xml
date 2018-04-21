@@ -5,17 +5,27 @@
 
 	<resultMap id="OrderEmailConfig" type="com.wanle.domain.OrderEmailConfig" >
 		<result column="id" property="id"/>
+		<result column="name" property="name"/>
 		<result column="email_alert_person" property="emailAlertPerson"/>
 		<result column="email_title_subject" property="emailTitleSubject"/>
 		<result column="email_html_template" property="emailHtmlTemplate"/>
+		<result column="wx_push_person" property="wxPushPerson"/>
+		<result column="wx_push_template" property="wxPushTemplate"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
 	</resultMap>
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
 		id,
+		name,
 		email_alert_person,
 		email_title_subject,
-		email_html_template
+		email_html_template,
+		wx_push_person,
+		wx_push_template,
+		create_time,
+		update_time
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -37,16 +47,26 @@
 		 INSERT INTO order_email_config
  		(
 			 id,
+			 name,
 			 email_alert_person,
 			 email_title_subject,
-			 email_html_template
+			 email_html_template,
+			 wx_push_person,
+			 wx_push_template,
+			 create_time,
+			 update_time
 		) 
 		 VALUES 
  		(
 			 #{id},
+			 #{name},
 			 #{emailAlertPerson},
 			 #{emailTitleSubject},
-			 #{emailHtmlTemplate}
+			 #{emailHtmlTemplate},
+			 #{wxPushPerson},
+			 #{wxPushTemplate},
+			 #{createTime},
+			 #{updateTime}
  		) 
 		 <selectKey keyProperty="id" resultType="Integer" order="AFTER">
 			 select LAST_INSERT_ID()
@@ -60,6 +80,9 @@
 			<if test="id != null">
 				 id,
 			</if>
+			<if test="name != null">
+				 name,
+			</if>
 			<if test="emailAlertPerson != null">
 				 email_alert_person,
 			</if>
@@ -69,11 +92,26 @@
 			<if test="emailHtmlTemplate != null">
 				 email_html_template,
 			</if>
+			<if test="wxPushPerson != null">
+				 wx_push_person,
+			</if>
+			<if test="wxPushTemplate != null">
+				 wx_push_template,
+			</if>
+			<if test="createTime != null">
+				 create_time,
+			</if>
+			<if test="updateTime != null">
+				 update_time,
+			</if>
 
 		 </trim>
 		 <trim prefix="values (" suffix=")" suffixOverrides="," >
 			<if test="id!=null">
 				 #{id},
+			</if>
+			<if test="name!=null">
+				 #{name},
 			</if>
 			<if test="emailAlertPerson!=null">
 				 #{emailAlertPerson},
@@ -84,6 +122,18 @@
 			<if test="emailHtmlTemplate!=null">
 				 #{emailHtmlTemplate},
 			</if>
+			<if test="wxPushPerson!=null">
+				 #{wxPushPerson},
+			</if>
+			<if test="wxPushTemplate!=null">
+				 #{wxPushTemplate},
+			</if>
+			<if test="createTime!=null">
+				 #{createTime},
+			</if>
+			<if test="updateTime!=null">
+				 #{updateTime},
+			</if>
 		 </trim>
 	</insert>
 
@@ -91,6 +141,9 @@
 	<update id="updateByPrimaryKeySelective" parameterType="com.wanle.domain.OrderEmailConfig">
 		 UPDATE order_email_config
  		 <set> 
+			<if test="name != null and name != ''">
+				 name = #{name},
+			</if>
 			<if test="emailAlertPerson != null and emailAlertPerson != ''">
 				 email_alert_person = #{emailAlertPerson},
 			</if>
@@ -99,6 +152,18 @@
 			</if>
 			<if test="emailHtmlTemplate != null and emailHtmlTemplate != ''">
 				 email_html_template = #{emailHtmlTemplate},
+			</if>
+			<if test="wxPushPerson != null and wxPushPerson != ''">
+				 wx_push_person = #{wxPushPerson},
+			</if>
+			<if test="wxPushTemplate != null and wxPushTemplate != ''">
+				 wx_push_template = #{wxPushTemplate},
+			</if>
+			<if test="createTime != null">
+				 create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				 update_time = #{updateTime},
 			</if>
 
  		 </set>
@@ -114,6 +179,9 @@
 		<if test="record.id != null">
 			 and id = #{record.id} 
 		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
 		<if test="record.emailAlertPerson != null and record.emailAlertPerson != ''">
 			 and email_alert_person = #{record.emailAlertPerson} 
 		</if>
@@ -122,6 +190,18 @@
 		</if>
 		<if test="record.emailHtmlTemplate != null and record.emailHtmlTemplate != ''">
 			 and email_html_template = #{record.emailHtmlTemplate} 
+		</if>
+		<if test="record.wxPushPerson != null and record.wxPushPerson != ''">
+			 and wx_push_person = #{record.wxPushPerson} 
+		</if>
+		<if test="record.wxPushTemplate != null and record.wxPushTemplate != ''">
+			 and wx_push_template = #{record.wxPushTemplate} 
+		</if>
+		<if test="record.createTime != null">
+			 and create_time = #{record.createTime} 
+		</if>
+		<if test="record.updateTime != null">
+			 and update_time = #{record.updateTime} 
 		</if>
 		<if test="commonQueryParam != null">
 			<if test="commonQueryParam.start != null  and commonQueryParam.pageSize != null">
@@ -138,6 +218,9 @@
 		<if test="record.id != null">
 			 and id = #{record.id} 
 		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
 		<if test="record.emailAlertPerson != null and record.emailAlertPerson != ''">
 			 and email_alert_person = #{record.emailAlertPerson} 
 		</if>
@@ -146,6 +229,18 @@
 		</if>
 		<if test="record.emailHtmlTemplate != null and record.emailHtmlTemplate != ''">
 			 and email_html_template = #{record.emailHtmlTemplate} 
+		</if>
+		<if test="record.wxPushPerson != null and record.wxPushPerson != ''">
+			 and wx_push_person = #{record.wxPushPerson} 
+		</if>
+		<if test="record.wxPushTemplate != null and record.wxPushTemplate != ''">
+			 and wx_push_template = #{record.wxPushTemplate} 
+		</if>
+		<if test="record.createTime != null">
+			 and create_time = #{record.createTime} 
+		</if>
+		<if test="record.updateTime != null">
+			 and update_time = #{record.updateTime} 
 		</if>
 	</select>
 	<!-- list 查询-->
@@ -157,6 +252,9 @@
 		<if test="record.id != null">
 			 and id = #{record.id} 
 		</if>
+		<if test="record.name != null and record.name != ''">
+			 and name = #{record.name} 
+		</if>
 		<if test="record.emailAlertPerson != null and record.emailAlertPerson != ''">
 			 and email_alert_person = #{record.emailAlertPerson} 
 		</if>
@@ -165,6 +263,18 @@
 		</if>
 		<if test="record.emailHtmlTemplate != null and record.emailHtmlTemplate != ''">
 			 and email_html_template = #{record.emailHtmlTemplate} 
+		</if>
+		<if test="record.wxPushPerson != null and record.wxPushPerson != ''">
+			 and wx_push_person = #{record.wxPushPerson} 
+		</if>
+		<if test="record.wxPushTemplate != null and record.wxPushTemplate != ''">
+			 and wx_push_template = #{record.wxPushTemplate} 
+		</if>
+		<if test="record.createTime != null">
+			 and create_time = #{record.createTime} 
+		</if>
+		<if test="record.updateTime != null">
+			 and update_time = #{record.updateTime} 
 		</if>
 	</select>
 </mapper>

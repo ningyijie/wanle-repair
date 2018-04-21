@@ -15,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -43,7 +45,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2Doc
 @EnableSwagger2
 @EnableTransactionManagement
-public class RepairApplication {
+public class RepairApplication extends SpringBootServletInitializer {
     // 启动的时候要注意，由于我们在controller中注入了RestTemplate，所以启动的时候需要实例化该类的一个实例
     @Autowired
     private RestTemplateBuilder builder;
@@ -52,6 +54,11 @@ public class RepairApplication {
     @Bean
     public RestTemplate restTemplate() {
         return builder.build();
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(RepairApplication.class);
     }
 
     public static void main(String[] args) {

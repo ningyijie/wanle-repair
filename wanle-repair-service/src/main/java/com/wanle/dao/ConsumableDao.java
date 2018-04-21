@@ -22,14 +22,14 @@ public interface ConsumableDao{
 	 * 查询（根据主键ID查询）
 	 * 
 	 **/
-	Consumable  selectByPrimaryKey ( @Param(" id") Long  id );
+	Consumable  selectByPrimaryKey ( @Param("id") Long id );
 
 	/**
 	 * 
 	 * 删除（根据主键ID删除）
 	 * 
 	 **/
-	int deleteByPrimaryKey ( @Param(" id") Long  id );
+	int deleteByPrimaryKey ( @Param("id") Long id );
 
 	/**
 	 * 

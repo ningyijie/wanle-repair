@@ -4,26 +4,34 @@
 <mapper namespace="com.wanle.dao.ConsumableDao">
 
 	<resultMap id="Consumable" type="com.wanle.domain.Consumable" >
-		<result column=" id" property="id"/>
+		<result column="id" property="id"/>
 		<result column="phone_id" property="phoneId"/>
 		<result column="repair_id" property="repairId"/>
 		<result column="name" property="name"/>
 		<result column="remain" property="remain"/>
 		<result column="color" property="color"/>
 		<result column="price" property="price"/>
-		<result column="price_online" property="priceOnline"/>
+		<result column="mem_price" property="memPrice"/>
+		<result column="activity_price" property="activityPrice"/>
+		<result column="cost_price" property="costPrice"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
 	</resultMap>
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		 id,
+		id,
 		phone_id,
 		repair_id,
 		name,
 		remain,
 		color,
 		price,
-		price_online
+		mem_price,
+		activity_price,
+		cost_price,
+		create_time,
+		update_time
 	</sql>
 
 	<!-- 查询（根据主键ID查询） -->
@@ -31,27 +39,31 @@
 		 SELECT
 		 <include refid="Base_Column_List" />
 		 FROM consumable
-		 WHERE  id = #{ id}
+		 WHERE id = #{id}
 	</select>
 
 	<!--删除：根据主键ID删除-->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		 DELETE FROM consumable
-		 WHERE  id = #{ id}
+		 WHERE id = #{id}
 	</delete>
 
 	<!-- 添加 -->
 	<insert id="insert" parameterType="com.wanle.domain.Consumable">
 		 INSERT INTO consumable
  		(
-			  id,
+			 id,
 			 phone_id,
 			 repair_id,
 			 name,
 			 remain,
 			 color,
 			 price,
-			 price_online
+			 mem_price,
+			 activity_price,
+			 cost_price,
+			 create_time,
+			 update_time
 		) 
 		 VALUES 
  		(
@@ -62,11 +74,97 @@
 			 #{remain},
 			 #{color},
 			 #{price},
-			 #{priceOnline}
+			 #{memPrice},
+			 #{activityPrice},
+			 #{costPrice},
+			 #{createTime},
+			 #{updateTime}
  		) 
-		 <selectKey keyProperty=" id" resultType="Long" order="AFTER">
+		 <selectKey keyProperty="id" resultType="Long" order="AFTER">
 			 select LAST_INSERT_ID()
 		 </selectKey>
+	</insert>
+
+	<!-- 添加 （匹配有值的字段）-->
+	<insert id="insertSelective" parameterType="com.wanle.domain.Consumable">
+		 INSERT INTO consumable
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				 id,
+			</if>
+			<if test="phoneId != null">
+				 phone_id,
+			</if>
+			<if test="repairId != null">
+				 repair_id,
+			</if>
+			<if test="name != null">
+				 name,
+			</if>
+			<if test="remain != null">
+				 remain,
+			</if>
+			<if test="color != null">
+				 color,
+			</if>
+			<if test="price != null">
+				 price,
+			</if>
+			<if test="memPrice != null">
+				 mem_price,
+			</if>
+			<if test="activityPrice != null">
+				 activity_price,
+			</if>
+			<if test="costPrice != null">
+				 cost_price,
+			</if>
+			<if test="createTime != null">
+				 create_time,
+			</if>
+			<if test="updateTime != null">
+				 update_time,
+			</if>
+
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id!=null">
+				 #{id},
+			</if>
+			<if test="phoneId!=null">
+				 #{phoneId},
+			</if>
+			<if test="repairId!=null">
+				 #{repairId},
+			</if>
+			<if test="name!=null">
+				 #{name},
+			</if>
+			<if test="remain!=null">
+				 #{remain},
+			</if>
+			<if test="color!=null">
+				 #{color},
+			</if>
+			<if test="price!=null">
+				 #{price},
+			</if>
+			<if test="memPrice!=null">
+				 #{memPrice},
+			</if>
+			<if test="activityPrice!=null">
+				 #{activityPrice},
+			</if>
+			<if test="costPrice!=null">
+				 #{costPrice},
+			</if>
+			<if test="createTime!=null">
+				 #{createTime},
+			</if>
+			<if test="updateTime!=null">
+				 #{updateTime},
+			</if>
+		 </trim>
 	</insert>
 
 	<!-- 修 改-->
@@ -91,12 +189,24 @@
 			<if test="price != null">
 				 price = #{price},
 			</if>
-			<if test="priceOnline != null">
-				 price_online = #{priceOnline},
+			<if test="memPrice != null">
+				 mem_price = #{memPrice},
+			</if>
+			<if test="activityPrice != null">
+				 activity_price = #{activityPrice},
+			</if>
+			<if test="costPrice != null">
+				 cost_price = #{costPrice},
+			</if>
+			<if test="createTime != null">
+				 create_time = #{createTime},
+			</if>
+			<if test="updateTime != null">
+				 update_time = #{updateTime},
 			</if>
 
  		 </set>
-		 WHERE  id = #{ id}
+		 WHERE id = #{id}
 	</update>
 
 	<!-- list4Page 分页查询-->
@@ -105,8 +215,8 @@
 		 <include refid="Base_Column_List" />
 		 from consumable
  		 where 1=1  
-		<if test="record. id != null">
-			 and  id = #{record. id} 
+		<if test="record.id != null">
+			 and id = #{record.id} 
 		</if>
 		<if test="record.phoneId != null">
 			 and phone_id = #{record.phoneId} 
@@ -126,8 +236,20 @@
 		<if test="record.price != null">
 			 and price = #{record.price} 
 		</if>
-		<if test="record.priceOnline != null">
-			 and price_online = #{record.priceOnline} 
+		<if test="record.memPrice != null">
+			 and mem_price = #{record.memPrice} 
+		</if>
+		<if test="record.activityPrice != null">
+			 and activity_price = #{record.activityPrice} 
+		</if>
+		<if test="record.costPrice != null">
+			 and cost_price = #{record.costPrice} 
+		</if>
+		<if test="record.createTime != null">
+			 and create_time = #{record.createTime} 
+		</if>
+		<if test="record.updateTime != null">
+			 and update_time = #{record.updateTime} 
 		</if>
 		<if test="commonQueryParam != null">
 			<if test="commonQueryParam.start != null  and commonQueryParam.pageSize != null">
@@ -141,8 +263,8 @@
 		 count(1) 
 		 from consumable
  		 where 1=1  
-		<if test="record. id != null">
-			 and  id = #{record. id} 
+		<if test="record.id != null">
+			 and id = #{record.id} 
 		</if>
 		<if test="record.phoneId != null">
 			 and phone_id = #{record.phoneId} 
@@ -162,8 +284,20 @@
 		<if test="record.price != null">
 			 and price = #{record.price} 
 		</if>
-		<if test="record.priceOnline != null">
-			 and price_online = #{record.priceOnline} 
+		<if test="record.memPrice != null">
+			 and mem_price = #{record.memPrice} 
+		</if>
+		<if test="record.activityPrice != null">
+			 and activity_price = #{record.activityPrice} 
+		</if>
+		<if test="record.costPrice != null">
+			 and cost_price = #{record.costPrice} 
+		</if>
+		<if test="record.createTime != null">
+			 and create_time = #{record.createTime} 
+		</if>
+		<if test="record.updateTime != null">
+			 and update_time = #{record.updateTime} 
 		</if>
 	</select>
 	<!-- list 查询-->
@@ -172,8 +306,8 @@
 		 <include refid="Base_Column_List" />
 		 from consumable
  		 where 1=1  
-		<if test="record. id != null">
-			 and  id = #{record. id} 
+		<if test="record.id != null">
+			 and id = #{record.id} 
 		</if>
 		<if test="record.phoneId != null">
 			 and phone_id = #{record.phoneId} 
@@ -193,43 +327,55 @@
 		<if test="record.price != null">
 			 and price = #{record.price} 
 		</if>
-		<if test="record.priceOnline != null">
-			 and price_online = #{record.priceOnline} 
+		<if test="record.memPrice != null">
+			 and mem_price = #{record.memPrice} 
+		</if>
+		<if test="record.activityPrice != null">
+			 and activity_price = #{record.activityPrice} 
+		</if>
+		<if test="record.costPrice != null">
+			 and cost_price = #{record.costPrice} 
+		</if>
+		<if test="record.createTime != null">
+			 and create_time = #{record.createTime} 
+		</if>
+		<if test="record.updateTime != null">
+			 and update_time = #{record.updateTime} 
 		</if>
 	</select>
 
-	<!-- list 查询-->
-	<select id="selectByConditionAndColor" resultMap="Consumable">
-		SELECT
-		<include refid="Base_Column_List" />
-		from consumable
-		where 1=1
-		<if test="record.id != null">
-			and  id = #{record.id}
-		</if>
-		<if test="record.phoneId != null">
-			and phone_id = #{record.phoneId}
-		</if>
-		<if test="record.repairId != null">
-			and repair_id = #{record.repairId}
-		</if>
-		<if test="record.name != null and record.name != ''">
-			and name = #{record.name}
-		</if>
-		<if test="record.remain != null">
-			and remain = #{record.remain}
-		</if>
-		<if test="record.color != null and record.color != ''">
-			and color in
-			<foreach collection="colors" index="index" item="item" open="(" separator="," close=")">
-				#{item}
-			</foreach>
-		</if>
-		<if test="record.price != null">
-			and price = #{record.price}
-		</if>
-		<if test="record.priceOnline != null">
-			and price_online = #{record.priceOnline}
-		</if>
-	</select>
+	<!--&lt;!&ndash; list 查询&ndash;&gt;-->
+	<!--<select id="selectByConditionAndColor" resultMap="Consumable">-->
+		<!--SELECT-->
+		<!--<include refid="Base_Column_List" />-->
+		<!--from consumable-->
+		<!--where 1=1-->
+		<!--<if test="record.id != null">-->
+			<!--and  id = #{record.id}-->
+		<!--</if>-->
+		<!--<if test="record.phoneId != null">-->
+			<!--and phone_id = #{record.phoneId}-->
+		<!--</if>-->
+		<!--<if test="record.repairId != null">-->
+			<!--and repair_id = #{record.repairId}-->
+		<!--</if>-->
+		<!--<if test="record.name != null and record.name != ''">-->
+			<!--and name = #{record.name}-->
+		<!--</if>-->
+		<!--<if test="record.remain != null">-->
+			<!--and remain = #{record.remain}-->
+		<!--</if>-->
+		<!--<if test="record.color != null and record.color != ''">-->
+			<!--and color in-->
+			<!--<foreach collection="colors" index="index" item="item" open="(" separator="," close=")">-->
+				<!--#{item}-->
+			<!--</foreach>-->
+		<!--</if>-->
+		<!--<if test="record.price != null">-->
+			<!--and price = #{record.price}-->
+		<!--</if>-->
+		<!--<if test="record.priceOnline != null">-->
+			<!--and price_online = #{record.priceOnline}-->
+		<!--</if>-->
+	<!--</select>-->
 </mapper>

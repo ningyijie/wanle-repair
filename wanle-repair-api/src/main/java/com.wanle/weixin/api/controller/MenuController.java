@@ -2,7 +2,7 @@ package com.wanle.weixin.api.controller;
 
 import com.wanle.utils.TokenSingleton;
 import com.wanle.vo.Message;
-import com.wanle.vo.ResponseVo;
+import com.wanle.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -38,13 +38,13 @@ public class MenuController {
 
 
     @RequestMapping(value = "/api/v1/weixin/createWeixinMenu", method = { RequestMethod.POST})
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResultVo.class) })
     @ApiOperation(value = "创建菜单", httpMethod = "POST", response = String.class, notes = "微信登录验证")
-    public ResponseVo createWeixinMenu(HttpServletRequest request, @RequestBody Button[] button){
+    public ResultVo createWeixinMenu(HttpServletRequest request, @RequestBody Button[] button){
         MenuButtons menuButtons=new MenuButtons();
         menuButtons.setButton(button);
         BaseResult result=MenuAPI.menuCreate( tokenSingleton.getAccessToken(), menuButtons);
-        return new ResponseVo(Message.Success,result);
+        return new ResultVo(Message.Success,result);
     }
 
 }

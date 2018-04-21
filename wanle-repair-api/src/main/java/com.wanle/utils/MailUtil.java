@@ -1,5 +1,6 @@
 package com.wanle.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wanle.dao.OrderEmailConfigDao;
 import com.wanle.domain.OrderEmailConfig;
 import freemarker.template.Template;
@@ -47,8 +48,7 @@ public class MailUtil {
     @Autowired
     private FreeMarkerConfigurer freeMarkerConfigurer; //自动注入
 
-    @Autowired
-    private OrderEmailConfigDao orderEmailConfigDao;
+
 
     /**
      * 发送纯文本的简单邮件
@@ -165,15 +165,14 @@ public class MailUtil {
      * creat_date: 2018/4/2
      * creat_time: 上午9:49
      **/
-    public void sendHtmlTemplateMail(int templateId,Map<String, Object> model){
+    public void sendHtmlTemplateMail(OrderEmailConfig orderEmailConfig,Map<String, Object> model){
         try {
-            OrderEmailConfig orderEmailConfig=orderEmailConfigDao.selectByPrimaryKey(templateId);
-            if(orderEmailConfig!=null){
 
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(from);
-            helper.setTo(orderEmailConfig.getEmailAlertPerson());
+            String[] to =orderEmailConfig.getEmailAlertPerson().split(",");
+            helper.setTo(to);
             helper.setSubject(orderEmailConfig.getEmailTitleSubject());
             //读取 html 模板
             Template template=new Template(null,orderEmailConfig.getEmailHtmlTemplate(),null);
@@ -182,9 +181,7 @@ public class MailUtil {
 
             mailSender.send(message);
 
-            }else{
-                logger.info("id={},邮件模板不存在",templateId);
-            }
+
         } catch (Exception e) {
             logger.error("发送模板邮件失败,邮件信息:{}",model,e);
         }

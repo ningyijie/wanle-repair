@@ -26,13 +26,19 @@ start(){
     echo "${APP_NAME} is already running. pid=${pid} ."
   else
     nohup java -jar $APP_NAME > /dev/null 2>&1 &
-  fi
+   fi
 }
 
 #停止方法
 stop(){
   is_exist
-"wanle.sh" 75L, 1229C
+  if [ $? -eq "0" ]; then
+    kill -9 $pid
+  else
+    echo "${APP_NAME} is not running"
+  fi
+}
+
 #输出运行状态
 status(){
   is_exist

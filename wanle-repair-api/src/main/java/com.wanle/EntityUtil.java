@@ -73,7 +73,7 @@ public class EntityUtil {
         ResultSet results = pstate.executeQuery();
         while (results.next()) {
             String tableName = results.getString(1);
-            if (tableName.toLowerCase().startsWith("order_email_config")) {
+            if (tableName.toLowerCase().equals("user_admin")) {
                 tables.add(tableName);
             }
         }
@@ -372,10 +372,10 @@ public class EntityUtil {
         bw.newLine();
         bw.write("\t" + "int insert( " + beanName + " record );");
         bw.newLine();
-        // bw = buildMethodComment(bw, "添加 （匹配有值的字段）");
-        // bw.newLine();
-        // bw.write("\t" + "int insertSelective( " + beanName + " record );");
-        // bw.newLine();
+         bw = buildMethodComment(bw, "添加 （匹配有值的字段）");
+         bw.newLine();
+         bw.write("\t" + "int insertSelective( " + beanName + " record );");
+         bw.newLine();
         bw = buildMethodComment(bw, "修改 （匹配有值的字段）");
         bw.newLine();
         bw.write("\t" + "int updateByPrimaryKeySelective( " + beanName + " record );");

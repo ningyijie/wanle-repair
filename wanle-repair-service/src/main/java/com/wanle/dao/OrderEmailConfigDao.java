@@ -40,6 +40,13 @@ public interface OrderEmailConfigDao{
 
 	/**
 	 * 
+	 * 添加 （匹配有值的字段）
+	 * 
+	 **/
+	int insertSelective( OrderEmailConfig record );
+
+	/**
+	 * 
 	 * 修改 （匹配有值的字段）
 	 * 
 	 **/

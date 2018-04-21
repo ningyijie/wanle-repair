@@ -1,9 +1,14 @@
 package com.wanle.domain;
 
+import io.swagger.annotations.ApiModelProperty;import java.math.BigDecimal;
+import java.util.Date;
 
-import io.swagger.annotations.ApiModelProperty;
 
-
+/**
+ * 
+ * 耗材表
+ * 
+ **/
 public class Consumable implements java.io.Serializable {
 
 
@@ -12,7 +17,7 @@ public class Consumable implements java.io.Serializable {
 
   @ApiModelProperty("")
 
-  private Long  id;
+  private Long id;
 
 
   @ApiModelProperty("机型外键")
@@ -20,7 +25,7 @@ public class Consumable implements java.io.Serializable {
   private Integer phoneId;
 
 
-  @ApiModelProperty("")
+  @ApiModelProperty("维修类型 id")
 
   private Long repairId;
 
@@ -40,93 +45,131 @@ public class Consumable implements java.io.Serializable {
   private String color;
 
 
-  @ApiModelProperty("售价")
+  @ApiModelProperty("零售价")
 
-  private Integer price;
-
-
-  @ApiModelProperty("官方售价")
-
-  private Integer priceOnline;
+  private BigDecimal price;
 
 
-  public static long getSerialVersionUID() {
-    return serialVersionUID;
-  }
+  @ApiModelProperty("会员价")
 
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public void setPhoneId(Integer phoneId) {
-    this.phoneId = phoneId;
-  }
+  private BigDecimal memPrice;
 
 
-  public Integer getPhoneId() { 
-    return this.phoneId;
-  }
+  @ApiModelProperty("活动、促销 价格")
+
+  private BigDecimal activityPrice;
 
 
-  public Long getRepairId() {
-    return repairId;
-  }
+  @ApiModelProperty("成本价")
 
-  public void setRepairId(Long repairId) {
-    this.repairId = repairId;
-  }
+  private BigDecimal costPrice;
 
-  public void setName(String name) {
-    this.name = name;
+
+  @ApiModelProperty("创建时间")
+
+  private Date createTime;
+
+
+  @ApiModelProperty("更新时间")
+
+  private Date updateTime;
+
+
+
+
+  public void setId(Long id) {     this.id = id;
   }
 
 
-  public String getName() { 
-    return this.name;
+  public Long getId() {     return this.id;
   }
 
 
-  public void setRemain(Integer remain) { 
-    this.remain = remain;
+  public void setPhoneId(Integer phoneId) {     this.phoneId = phoneId;
   }
 
 
-  public Integer getRemain() { 
-    return this.remain;
+  public Integer getPhoneId() {     return this.phoneId;
   }
 
 
-  public void setColor(String color) { 
-    this.color = color;
+  public void setRepairId(Long repairId) {     this.repairId = repairId;
   }
 
 
-  public String getColor() { 
-    return this.color;
+  public Long getRepairId() {     return this.repairId;
   }
 
 
-  public void setPrice(Integer price) { 
-    this.price = price;
+  public void setName(String name) {     this.name = name;
   }
 
 
-  public Integer getPrice() { 
-    return this.price;
+  public String getName() {     return this.name;
   }
 
 
-  public void setPriceOnline(Integer priceOnline) { 
-    this.priceOnline = priceOnline;
+  public void setRemain(Integer remain) {     this.remain = remain;
   }
 
 
-  public Integer getPriceOnline() { 
-    return this.priceOnline;
+  public Integer getRemain() {     return this.remain;
+  }
+
+
+  public void setColor(String color) {     this.color = color;
+  }
+
+
+  public String getColor() {     return this.color;
+  }
+
+
+  public void setPrice(BigDecimal price) {     this.price = price;
+  }
+
+
+  public BigDecimal getPrice() {     return this.price;
+  }
+
+
+  public void setMemPrice(BigDecimal memPrice) {     this.memPrice = memPrice;
+  }
+
+
+  public BigDecimal getMemPrice() {     return this.memPrice;
+  }
+
+
+  public void setActivityPrice(BigDecimal activityPrice) {     this.activityPrice = activityPrice;
+  }
+
+
+  public BigDecimal getActivityPrice() {     return this.activityPrice;
+  }
+
+
+  public void setCostPrice(BigDecimal costPrice) {     this.costPrice = costPrice;
+  }
+
+
+  public BigDecimal getCostPrice() {     return this.costPrice;
+  }
+
+
+  public void setCreateTime(Date createTime) {     this.createTime = createTime;
+  }
+
+
+  public Date getCreateTime() {     return this.createTime;
+  }
+
+
+  public void setUpdateTime(Date updateTime) {     this.updateTime = updateTime;
+  }
+
+
+  public Date getUpdateTime() {     return this.updateTime;
   }
 
 }

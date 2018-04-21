@@ -5,7 +5,7 @@ import com.wanle.repair.api.service.PhoneRepairTypeService;
 import com.wanle.domain.PhoneRepairType;
 import com.wanle.vo.Message;
 import com.wanle.vo.RepairTree;
-import com.wanle.vo.ResponseVo;
+import com.wanle.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +32,16 @@ public class PhoneRepairTypeController {
 
     @RequestMapping(path = "/api/v1/repairType/getRepairType", method = { RequestMethod.POST ,RequestMethod.GET})
     @ApiOperation(value = " 根据手机获取维修列表", httpMethod = "POST", response = String.class, notes = "根据手机获取维修列表")
-    public ResponseVo getAllPhoneType(HttpServletRequest request,@RequestBody PhoneRepairType phoneRepairType) {
+    public ResultVo getAllPhoneType(HttpServletRequest request, @RequestBody PhoneRepairType phoneRepairType) {
         Preconditions.checkNotNull(phoneRepairType, "phoneRepairType cannot null");
         Preconditions.checkNotNull(phoneRepairType.getPhoneId(), "phoneId cannot empty");
         Preconditions.checkNotNull(phoneRepairType.getColorId(), "colorId cannot empty");
 
         List<RepairTree> repairTreeList= phoneRepairTypeService.getRepaairTypeByPhoneAndColor(phoneRepairType);
        if(repairTreeList==null) {
-           return new ResponseVo(Message.NoResult, null);
+           return new ResultVo(Message.NoResult, null);
        }else{
-           return new ResponseVo(Message.Success,repairTreeList);
+           return new ResultVo(Message.Success,repairTreeList);
        }
     }
 }

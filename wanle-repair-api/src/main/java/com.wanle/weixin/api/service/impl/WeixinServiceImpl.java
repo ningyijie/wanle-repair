@@ -3,7 +3,7 @@ package com.wanle.weixin.api.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.wanle.domain.User;
 import com.wanle.vo.Message;
-import com.wanle.vo.ResponseVo;
+import com.wanle.vo.ResultVo;
 import com.wanle.weixin.api.service.WeiXinUserService;
 import com.wanle.weixin.api.service.WeixinService;
 import org.apache.commons.lang3.StringUtils;
@@ -146,7 +146,7 @@ public class WeixinServiceImpl implements WeixinService {
      * @return
      */
     @Override
-    public ResponseVo getWeiXinLogin(String code) {
+    public ResultVo getWeiXinLogin(String code) {
         logger.info("用户同意授权");
         try {
             if(!"".equals(code)){
@@ -154,19 +154,19 @@ public class WeixinServiceImpl implements WeixinService {
                SnsToken token=SnsAPI.oauth2AccessToken(appid,secret,code);
                logger.info("通过 code 获取网页 access_token ,结果：{}",JSONObject.toJSONString(token));
                if(token==null || StringUtils.isEmpty(token.getAccess_token()) || StringUtils.isEmpty(token.getOpenid()) ){
-                   return new ResponseVo(Message.NoResult,token);
+                   return new ResultVo(Message.NoResult,token);
                }
                logger.info("通过网页 accesss_token 获取用户信息");
                User user=weiXinUserService.getUserByOauthToken(token.getAccess_token(),token.getOpenid());
                logger.info("获取到用户信息:{}",JSONObject.toJSONString(user));
 
-                return new ResponseVo(Message.Success,user);
+                return new ResultVo(Message.Success,user);
             }
         } catch (Exception e) {
             logger.error("查询用户网页access_token 并获取用户信息失败",e);
-            return new ResponseVo(Message.UnKnowError);
+            return new ResultVo(Message.UnKnowError);
         }
-        return new ResponseVo(Message.NoResult);
+        return new ResultVo(Message.NoResult);
     }
 
 

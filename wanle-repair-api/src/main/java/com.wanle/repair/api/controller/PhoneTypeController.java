@@ -2,7 +2,7 @@ package com.wanle.repair.api.controller;
 
 import com.wanle.repair.api.service.PhoneService;
 import com.wanle.vo.Message;
-import com.wanle.vo.ResponseVo;
+import com.wanle.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +33,12 @@ public class PhoneTypeController {
     private PhoneService phoneService;
 
     @RequestMapping(value = "/api/v1/phoneType/getAllPhoneType", method = { RequestMethod.POST,RequestMethod.GET })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResponseVo.class) })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "成功", response = ResultVo.class) })
     @ApiOperation(value = " 获取手机列表", httpMethod = "POST", response = String.class, notes = "获取手机列表")
-    public ResponseVo getAllPhoneType(HttpServletRequest request) {
+    public ResultVo getAllPhoneType(HttpServletRequest request) {
         logger.info("获取手机列表");
         Map phoneTypeList=phoneService.getAllPhoneTypeByCondition();
-        return new ResponseVo(Message.Success,phoneTypeList);
+        return new ResultVo(Message.Success,phoneTypeList);
     }
 
 }
